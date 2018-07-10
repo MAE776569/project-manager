@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts'
+    'accounts',
+    'authentication'
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,4 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'public_files')
 
 AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = ['authentication.backends.UserAuthenticationBackend']
