@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -128,5 +129,6 @@ STATIC_URL = '/public/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'public')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'public')
+STATIC_ROOT = os.path.join(BASE_DIR, 'public_files')
 
+AUTH_USER_MODEL = 'accounts.User'
