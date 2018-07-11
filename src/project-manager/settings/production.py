@@ -128,9 +128,10 @@ USE_TZ = True
 
 STATIC_URL = '/public/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'public')
+    #os.path.join(BASE_DIR, 'public'),
+    os.path.join(BASE_DIR, 'public-files-dist')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'public_files')
+STATIC_ROOT = os.path.join(BASE_DIR, 'public-files-root')
 
 AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = ['authentication.backends.UserAuthenticationBackend']

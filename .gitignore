@@ -110,3 +110,21 @@ venv.bak/
 
 # vscode
 .vscode/
+
+# node modules
+/node_modules
+package.json
+package-lock.json
+gulp.js
+
+# bower
+/bower_components
+
+# bootstrap
+**/bootstrap.*
+
+# jquery
+**/jquery.*
+
+# popper.js
+**/popper.*
