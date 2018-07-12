@@ -1,0 +1,118 @@
+{% extends 'base-layout.html' %}
+{% load static %}
+{% block title %}Register{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/fontawesome-all.min.css' %}" /> {% endblock %}
+{% block nav-bar %}
+<nav class="navbar navbar-light bg-primary-dark-color">
+    <a href="#" class="navbar-brand txt-white">Project Manager</a>
+</nav>
+{% endblock %}
+{% block content %}
+<main class="pt-3">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="card">
+                    <div class="card-header bg-primary-color txt-white">
+                        <h1>Register</h1>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" id="auth-form">
+                            {% csrf_token %}
+                            <div class="form-group form-row">
+                                <label class="col-form-label col-lg-2 text-lg-center"
+                                    for="email">Email</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group">
+                                        <input type="email" id="email" name="{{form.username.html_name}}"
+                                            placeholder="some-email@email-provider.com" required
+                                            class="form-control {% if form.username.errors %} input-error {% endif %}"/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i id="email-icon" class="fas fa-envelope"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {% if form.username.errors %}
+                                    <div class="text-danger">
+                                        <small class="input-error-desc">{{form.username.errors.0}}</small>
+                                    </div>
+                                    {% endif %}
+                                    {% if form.username.help_text %}
+                                    <div class="form-text">
+                                        <small class="help-text">{{form.username.help_text}}</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group form-row">
+                                <label class="col-form-label col-lg-2 text-lg-center"
+                                    for="password">Password</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group">
+                                        <input type="password" id="password" name="{{form.password1.html_name}}"
+                                            placeholder="password" required
+                                            class="form-control {% if form.password1.errors %} input-error {% endif %}"/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i id="password-icon" class="fas fa-lock"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {% if form.password1.errors %}
+                                    <div class="text-danger">
+                                        <small class="input-error-desc">{{form.password1.errors.0}}</small>
+                                    </div>
+                                    {% endif %}
+                                    {% if form.password1.help_text %}
+                                    <div class="form-text">
+                                        <small class="help-text">{{form.password1.help_text|safe}}</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group form-row">
+                                <label class="col-form-label col-lg-2 text-lg-center conf-label"
+                                    for="confirm-password">Confirm Password</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group">
+                                        <input type="password" id="confirm-password" required
+                                            name="{{form.password2.html_name}}" placeholder="Enter the same password"
+                                            class="form-control {% if form.password2.errors %} input-error {% endif %}" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i id="confirm-password-icon" class="fas fa-redo"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {% if form.password2.errors %}
+                                    <div class="text-danger">
+                                        <small class="input-error-desc">{{form.password2.errors.0}}</small>
+                                    </div>
+                                    {% endif %}
+                                    {% if form.password2.help_text %}
+                                    <div class="form-text">
+                                        <small class="help-text">{{form.password2.help_text}}</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col offset-lg-2">
+                                    <input type="submit" value="Register" class="btn bg-primary-color txt-white"
+                                        id="submit-btn" disabled/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block body-scripts %}
+<script src="{% static 'scripts/validate-auth.js' %}"></script>
+<script src="{% static 'scripts/validate-register.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'base-layout.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/fontawesome-all.min.css' %}" />
+{% endblock %}
+{% block nav-bar %}
+<nav class="navbar navbar-light bg-primary-dark-color">
+    <a href="#" class="navbar-brand txt-white">Project Manager</a>
+</nav>
+{% endblock %}
+{% block content %}
+<main class="pt-3">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="card">
+                    <div class="card-header bg-primary-color txt-white">
+                        <h1>Login</h1>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" id="auth-form">
+                            {% csrf_token %}
+                            <div class="form-group form-row">
+                                <label class="col-form-label col-lg-2 text-lg-center"
+                                    for="email">Email</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group">
+                                        <input type="email" id="email" name="{{form.username.html_name}}"
+                                            placeholder="some-email@email-provider.com"
+                                            autofocus autocomplete="email" required
+                                            class="form-control {% if form.username.errors %} input-error {% endif %}"/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i id="email-icon" class="fas fa-envelope"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {% if form.username.errors %}
+                                    <div class="text-danger">
+                                        <small class="input-error-desc">{{form.username.errors.0}}</small>
+                                    </div>
+                                    {% endif %}
+                                    {% if form.username.help_text %}
+                                    <div class="form-text">
+                                        <small class="help-text">{{form.username.help_text}}</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group form-row">
+                                <label class="col-form-label col-lg-2 text-lg-center"
+                                    for="password">Password</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group">
+                                        <input type="password" id="password" name="{{form.password.html_name}}"
+                                            placeholder="password" autocomplete="current-password" required
+                                            class="form-control {% if form.password.errors %} input-error {% endif %}"/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i id="password-icon" class="fas fa-lock"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {% if form.password.errors %}
+                                    <div class="text-danger">
+                                        <small class="input-error-desc">{{form.password.errors.0}}</small>
+                                    </div>
+                                    {% endif %}
+                                    {% if form.password.help_text %}
+                                    <div class="form-text">
+                                        <small class="help-text">{{form.password.help_text}}</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col offset-lg-2">
+                                    <input type="submit" value="Log In" class="btn bg-primary-color txt-white"
+                                        id="submit-btn" disabled/>
+                                    <a href="#" class="p-2 ml-2 link-txt-color">Forgot password?</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block body-scripts %}
+<script src="{% static 'scripts/validate-auth.js' %}"></script>
+<script src="{% static 'scripts/validate-login.js' %}"></script>
+{% endblock %}
