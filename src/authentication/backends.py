@@ -1,10 +1,10 @@
-from accounts.models import User
+from django.contrib.auth import get_user_model
 
 class UserAuthenticationBackend():
 
-    def authenticate(self, username=None, password=None):
+    def authenticate(self, request, username, password):
         try:
-            user = User.objects.get(email=username)
+            user = get_user_model().objects.get(email=username)
             if user.check_password(password):
                 return user
             return None
@@ -13,7 +13,7 @@ class UserAuthenticationBackend():
 
     def get_user(self, user_id):
         try:
-            user = User.objects.get(id=user_id)
+            user = get_user_model().objects.get(pk=user_id)
             if user.is_active:
                 return user
             return None
