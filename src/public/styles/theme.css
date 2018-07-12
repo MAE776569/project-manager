@@ -1,0 +1,52 @@
+body, .bg-body-color{
+    background-color: #fbfbfb;
+}
+.bg-primary-color{
+    background-color: #4db6ac;
+}
+.bg-primary-dark-color{
+    background-color: #00867d;
+}
+.bg-primary-light-color{
+    background-color: #82e9de;
+}
+.txt-primary-color{
+    color: #4db6ac;
+}
+.txt-primary-dark-color{
+    color: #00867d;
+}
+.txt-primary-light-color{
+    color: #82e9de;
+}
+label{
+    font-weight: 400;
+}
+.input-error{
+    border: 1px solid #dc3545;
+    box-shadow: #dc3545 0 0 2px;
+}
+.txt-white{
+    color: #ffffff!important;
+}
+.input-error-desc{
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.link-txt-color{
+    color: #1c5a55;
+}
+.help-text{
+    color: #4a4a4a;
+}
+.help-text-list{
+    list-style-type: none;
+    padding: 0;
+}
+@media (min-width: 992px){
+    .conf-label{
+        font-size: 0.79em;
+        padding-right: 0!important;
+        padding-left: 0!important;
+    }
+}
