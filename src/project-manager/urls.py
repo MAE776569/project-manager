@@ -14,10 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path
 from decouple import config
+from authentication import urls as auth_urls
 
 urlpatterns = [
+    re_path(r"^auth/", include((auth_urls, 'authentication'), namespace="auth")),
 ]
 
 if config('ENVIRONMENT', cast=str) == 'dev':
