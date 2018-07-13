@@ -25,23 +25,23 @@
                                     for="email">Email</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input type="email" id="email" name="{{form.username.html_name}}"
+                                        <input type="email" id="email" name="{{form.email.html_name}}"
                                             placeholder="some-email@email-provider.com" required
-                                            class="form-control {% if form.username.errors %} input-error {% endif %}"/>
+                                            class="form-control {% if form.email.errors %} input-error {% endif %}"/>
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i id="email-icon" class="fas fa-envelope"></i>
                                             </span>
                                         </div>
                                     </div>
-                                    {% if form.username.errors %}
+                                    {% if form.email.errors %}
                                     <div class="text-danger">
-                                        <small class="input-error-desc">{{form.username.errors.0}}</small>
+                                        <small class="input-error-desc">{{form.email.errors.0}}</small>
                                     </div>
                                     {% endif %}
-                                    {% if form.username.help_text %}
+                                    {% if form.email.help_text %}
                                     <div class="form-text">
-                                        <small class="help-text">{{form.username.help_text}}</small>
+                                        <small class="help-text">{{form.email.help_text}}</small>
                                     </div>
                                     {% endif %}
                                 </div>
@@ -79,7 +79,7 @@
                                     <div class="input-group">
                                         <input type="password" id="confirm-password" required
                                             name="{{form.password2.html_name}}" placeholder="Enter the same password"
-                                            class="form-control {% if form.password2.errors %} input-error {% endif %}" />
+                                            class="form-control {% if form.password2.errors %} input-error {% endif %}"/>
                                         <div class="input-group-append">
                                             <span class="input-group-text">
                                                 <i id="confirm-password-icon" class="fas fa-redo"></i>

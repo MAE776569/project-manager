@@ -19,6 +19,15 @@
                         <h1>Login</h1>
                     </div>
                     <div class="card-body">
+                        {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger col pb-0">
+                            <ul class="text-danger help-text-list">
+                                <li class="input-error-desc">{{error}}</li>
+                            </ul>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
                         <form method="POST" id="auth-form">
                             {% csrf_token %}
                             <div class="form-group form-row">
