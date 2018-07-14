@@ -25,10 +25,17 @@ def get_password_help_text():
         one lowercase letter, digit and special character.""")
     help_texts.append("The spaces at the start and the end will be trimmed.")
     help_items = [format_html('<li>{}</li>', help_text) for help_text in help_texts]
-    return '<ul class="help-text-list">%s</ul>' % ''.join(help_items) if help_items else ''
+    return '<ul class="help-text-list">%s</ul>' % ''.join(help_items)
 
+def get_email_help_text():
+    help_texts = [
+        "Enter the email that was used for verification.",
+        "The email will be used to contact with you."
+    ]
+    help_items = [format_html('<li>{}</li>', help_text) for help_text in help_texts]
+    return '<ul class="help-text-list">%s</ul>' % ''.join(help_items)
 
-class RegisterationForm(UserCreationForm):
+class RegistrationForm(UserCreationForm):
     password1 = forms.CharField(
         label="Password",
         strip=True,
@@ -42,22 +49,22 @@ class RegisterationForm(UserCreationForm):
             code='invalid_password'
         )]
     )
+
     password2 = forms.CharField(
         label="Password confirmation",
         widget=forms.PasswordInput,
         strip=True,
         help_text="Enter the same password as before, for verification."
     )
+
     FIELD_NAME_MAPPING = {
-        "username": "email",
         "password1": "password",
         "password2": "confirm-password"
     }
-
     def add_prefix(self, field_name):
         field_name = self.FIELD_NAME_MAPPING.get(field_name, field_name)
         return super().add_prefix(field_name)
-    
+
     class Meta:
         model = get_user_model()
         fields = ("email",)
