@@ -32,7 +32,11 @@ class AccountVerification(models.Model):
                 msg=msg,
                 digestmod=sha256)
             self.verification_code = saved_code.hexdigest()
-            return hashed_user_code
+            self.save()
+            return {
+                "vfc": hashed_user_code,
+                "uuid": self.uuid
+            }
         else:
             raise ValueError("account already have a verification code")
 
