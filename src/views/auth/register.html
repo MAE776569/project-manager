@@ -2,11 +2,7 @@
 {% load static %}
 {% block title %}Register{% endblock %}
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'styles/fontawesome-all.min.css' %}" /> {% endblock %}
-{% block nav-bar %}
-<nav class="navbar navbar-light bg-primary-dark-color">
-    <a href="#" class="navbar-brand txt-white">Project Manager</a>
-</nav>
+<link rel="stylesheet" type="text/css" href="{% static 'styles/fontawesome-all.min.css' %}" />
 {% endblock %}
 {% block content %}
 <main class="pt-3">
@@ -14,10 +10,19 @@
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="card">
-                    <div class="card-header bg-primary-color txt-white">
+                    <div class="card-header bg-primary-color text-white">
                         <h1>Register</h1>
                     </div>
                     <div class="card-body">
+                        {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger col pb-0">
+                            <ul class="text-danger help-text-list">
+                                <li class="input-error-desc">{{error}}</li>
+                            </ul>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
                         <form method="POST" id="auth-form">
                             {% csrf_token %}
                             <div class="form-group form-row">
@@ -26,7 +31,7 @@
                                 <div class="col-lg-10">
                                     <div class="input-group">
                                         <input type="email" id="email" name="{{form.email.html_name}}"
-                                            placeholder="some-email@email-provider.com" required
+                                            placeholder="some-email@email-provider.com" required autofocus
                                             class="form-control {% if form.email.errors %} input-error {% endif %}"/>
                                         <div class="input-group-append">
                                             <span class="input-group-text">
@@ -41,7 +46,7 @@
                                     {% endif %}
                                     {% if form.email.help_text %}
                                     <div class="form-text">
-                                        <small class="help-text">{{form.email.help_text}}</small>
+                                        <small class="help-text">{{form.email.help_text|safe}}</small>
                                     </div>
                                     {% endif %}
                                 </div>
@@ -100,7 +105,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="col offset-lg-2">
-                                    <input type="submit" value="Register" class="btn bg-primary-color txt-white"
+                                    <input type="submit" value="Register" class="btn bg-primary-color text-white"
                                         id="submit-btn" disabled/>
                                 </div>
                             </div>

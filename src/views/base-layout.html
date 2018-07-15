@@ -12,11 +12,12 @@
     {% block head-scripts %}{% endblock %}
 </head>
 <body>
-    {% block nav-bar %}{% endblock %}
+    {% include 'partials/nav-bar.html' %}
     {% block content %}{% endblock %}
     <script src="{% static 'scripts/jquery.min.js' %}"></script>
     <script src="{% static 'scripts/popper.min.js' %}"></script>
     <script src="{% static 'scripts/bootstrap.min.js' %}"></script>
+    <script src="{% static 'scripts/nav-bar.js' %}"></script>
     {% block body-scripts %}{% endblock %}
 </body>
 </html>

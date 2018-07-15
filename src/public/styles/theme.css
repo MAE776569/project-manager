@@ -16,7 +16,7 @@ body, .bg-body-color{
 .txt-primary-dark-color{
     color: #00867d;
 }
-.txt-primary-light-color{
+.txt-primary-light-color, .nav-item:hover{
     color: #82e9de;
 }
 label{
@@ -26,7 +26,7 @@ label{
     border: 1px solid #dc3545;
     box-shadow: #dc3545 0 0 2px;
 }
-.txt-white{
+.nav-link{
     color: #ffffff!important;
 }
 .input-error-desc{
@@ -42,6 +42,102 @@ label{
 .help-text-list{
     list-style-type: none;
     padding: 0;
+}
+.header{
+    position: relative;
+    padding: 0.5rem;
+}
+.off-canvas-nav{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s linear 0.1s;
+    min-height: 90vh;
+    min-width: 65vw;
+}
+.off-canvas-nav:not(.hide){
+    transform: translateX(0);
+}
+.navbar-toggler{
+    display: inline-block;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+.nav{
+    flex-direction: column;
+}
+.dashboard-dropdown{
+    position: relative;
+    left: 3%;
+    right: 0;
+    top: 0;
+}
+.nav-bar-toggler-hide{
+    display: none;
+}
+.alert-message{
+    padding-bottom: 0;
+}
+.navbar-brand{
+    font-size: 1em;
+}
+.navbar-container{
+    padding: 0;
+}
+.nav-ml{
+    margin-left: 0!important;
+}
+.navbar-toggle-text{
+    font-weight: 600;
+}
+@media (min-width: 400px){ 
+    .off-canvas-nav{
+        min-width: 45vw;
+    }
+}
+@media (min-width: 576px){ 
+    .navbar-brand{
+        font-size: 1.25rem;
+    }
+    .off-canvas-nav{
+        min-width: 30vw;
+    }
+}
+@media  (min-width: 768px){
+    .off-canvas-nav{
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: translate(0);
+        min-height: auto;
+        min-width: auto;
+    }
+    .navbar-toggler{
+        display: none;
+    }
+    .nav{
+        flex-direction: row;
+    }
+    .header{
+        padding: 0;
+    }
+    .dashboard-dropdown{
+        position: absolute;
+        left: initial;
+        right: 0;
+        top: 100%;
+    }
+    .nav-ml{
+        margin-left: auto!important;
+    }
+    .navbar-container{
+        padding-right: 15px;
+        padding-left: 15px;
+    }
 }
 @media (min-width: 992px){
     .conf-label{

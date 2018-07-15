@@ -1,0 +1,55 @@
+<header class="bg-primary-dark-color header">
+    <button class="navbar-toggler btn btn-light
+    {% if not user.is_authenticated %}nav-bar-toggler-hide{% endif %}"
+        type="button" data-toggle="off-canvas" id="navbar-toggler" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggle-text">Menu</span>
+    </button>
+    <nav class="navbar hide list-group bg-primary-dark-color
+     {% if user.is_authenticated %}off-canvas-nav{% endif %}" id="navbar">
+        <div class="container navbar-container">
+            {% if not user.is_authenticated %}
+            <a class="navbar-brand text-white" href="{% url 'index'%}">Project Manager</a>
+            {% endif %}
+            <ul class="nav ml-auto nav-ml">
+                {% if user.is_authenticated %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Addtional Links</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Wiki</a>
+                </li>
+                {% if user.is_admin %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="collapse"
+                    href="#" role="button" aria-haspopup="true" aria-label="Toggle dropdown"
+                        id="admin-drop-down-toggler" aria-expanded="false">Admin</a>
+                    <div class="dropdown-menu dashboard-dropdown collapse" id="admin-dropdown-menu">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a>
+                    </div>
+                </li>
+                {% endif %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="collapse"
+                    href="#" role="button" aria-haspopup="true" aria-label="Toggle dropdown"
+                        id="user-drop-down-toggler" aria-expanded="false">User</a>
+                    <div class="dropdown-menu dashboard-dropdown collapse" id="user-dropdown-menu">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a>
+                    </div>
+                </li>
+                {% else %}
+                <a class="btn btn-light" href="{% url 'auth:login' %}">Login</a>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
