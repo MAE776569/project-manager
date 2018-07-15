@@ -1,19 +1,17 @@
 {% extends 'base-layout.html' %}
 {% block title %}Verify Email{% endblock %}
 {% block content %}
-<main class="pt-3">
-    <div class="container">
-        <div class="jumbotron">
-            <h2>Email verification</h2>
-            <p class="lead">Your email have been verified successfully.</p>
-            <hr class="my-4">
-            <p>Please follow this link to complete your registeration.</p>
-            <p class="lead">
-                <a class="btn btn-outline-success"
-                    href="{% url 'auth:register' %}?{{uuid}}"
-                    role="button">Complete registration</a>
-            </p>
-        </div>
+<div class="container">
+    <div class="jumbotron">
+        <h2>Email verification</h2>
+        <p class="lead">Your email have been verified successfully.</p>
+        <hr class="my-4">
+        <p>Please follow this link to complete your registeration.</p>
+        <p class="lead">
+            <a class="btn btn-outline-success"
+                href="{% url 'auth:register' %}?uid={{uuid}}"
+                role="button">Complete registration</a>
+        </p>
     </div>
-</main>
+</div>
 {% endblock %}

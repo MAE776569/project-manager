@@ -44,8 +44,11 @@ label{
     padding: 0;
 }
 .header{
-    position: relative;
+    position: fixed;
     padding: 0.5rem;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 .off-canvas-nav{
     position: absolute;
@@ -53,7 +56,7 @@ label{
     left: 0;
     transform: translateX(-100%);
     transition: transform 0.3s linear 0.1s;
-    min-height: 90vh;
+    min-height: 95vh;
     min-width: 65vw;
 }
 .off-canvas-nav:not(.hide){
@@ -124,6 +127,7 @@ label{
     }
     .header{
         padding: 0;
+        position: relative;
     }
     .dashboard-dropdown{
         position: absolute;
