@@ -17,8 +17,8 @@ class Login(LoginView):
     form_class = LoginForm
 
     @method_decorator(user_authenticated_redirect)
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
     
     def get_success_url(self, *args, **kwargs):
         storage = messages.get_messages(self.request)

@@ -3,13 +3,9 @@
 {% block title %}Project Manager{% endblock %}
 {% block content %}
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col">
-            {% if messages %}
-            {% include 'partials/alert-messages.html' %}
-            {% endif %}
-        </div>
-    </div>
+    {% if messages %}
+    {% include 'partials/alert-messages.html' %}
+    {% endif %}
     <div class="jumbotron">
         <p class="lead">Project Manager is a website developed by MAE to have all the resources required for the project in one location.
         </p>
