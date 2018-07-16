@@ -1,14 +1,20 @@
+let email = $("#email"),
+    password = $("#password"),
+    emailIcon = $("#email-icon"),
+    passwordIcon = $("#password-icon"),
+    submitBtn = document.querySelector("#submit-btn");
+
 function validateLogin() {
-    if (emailValid() && passwordValid())
+    if (emailValid(email) && passwordValid(password))
         submitBtn.disabled = false;
     else
         submitBtn.disabled = true;
 }
 email.on('input', () => {
-    validateEmail();
+    validateEmail(email, emailIcon);
     validateLogin();
 });
 password.on('input', () => {
-    validatePassword();
+    validatePassword(password, passwordIcon);
     validateLogin();
 });

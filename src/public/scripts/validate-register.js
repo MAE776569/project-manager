@@ -1,40 +1,27 @@
-var confirmPassword = $("#confirm-password"),
-    confirmPasswordIcon = $("#confirm-password-icon");
+let email = $("#email"),
+    password = $("#password"),
+    emailIcon = $("#email-icon"),
+    passwordIcon = $("#password-icon"),
+    confirmPassword = $("#confirm-password"),
+    confirmPasswordIcon = $("#confirm-password-icon"),
+    submitBtn = document.querySelector("#submit-btn");
 
-function passwordConfirmationValid() {
-    return Boolean(confirmPassword.val() &&
-        /^(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+*!=]).*$/
-            .test(confirmPassword.val()) &&
-        confirmPassword.val() === password.val());
-}
-
-function validatePasswordConfirmation() {
-    if (confirmPassword.hasClass('input-error'))
-        confirmPassword.removeClass('input-error');
-    if (passwordConfirmationValid()) {
-        confirmPasswordIcon.removeClass();
-        confirmPasswordIcon.addClass("fas fa-check");
-    }
-    else {
-        confirmPasswordIcon.removeClass();
-        confirmPasswordIcon.addClass("fas fa-times");
-    }
-}
 function validateRegiteration() {
-    if (emailValid() && passwordValid() && passwordConfirmationValid())
+    if (emailValid(email) && passwordValid(password)
+        && passwordConfirmationValid(password, confirmPassword))
         submitBtn.disabled = false;
     else
         submitBtn.disabled = true;
 }
 email.on('input', ()=>{
-    validateEmail();
+    validateEmail(email, emailIcon);
     validateRegiteration();
 });
 password.on('input', ()=>{
-    validatePassword();
+    validatePassword(password, passwordIcon);
     validateRegiteration();
 });
 confirmPassword.on('input', ()=>{
-    validatePasswordConfirmation();
+    validatePasswordConfirmation(password, confirmPassword, confirmPasswordIcon);
     validateRegiteration();
 });

@@ -45,9 +45,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         if not self.slug:
             if self.name:
-                self.slug = self.name + urandom(5).hex()
+                self.slug = slugify(self.name + urandom(5).hex())
             else:
-                self.slug = urandom(5).hex()
+                self.slug = slugify(urandom(5).hex())
         return super().save(*args, **kwargs)
 
     @property
