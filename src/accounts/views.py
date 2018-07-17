@@ -4,9 +4,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .decorators import owner_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.views import PasswordChangeView
-from .forms import UserChangePasswordForm
+from .forms import UserChangePasswordForm, ProfilePictureUploadForm
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.views.generic.edit import UpdateView
 
 class UserProfile(LoginRequiredMixin, DetailView):
     model = get_user_model()
@@ -25,3 +26,17 @@ class PasswordChange(PasswordChangeView):
     @method_decorator(owner_required)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+class ProfilePictureUpload(UpdateView):
+    http_method_names = ['post', 'put']
+    model = get_user_model()
+    form_class = ProfilePictureUploadForm
+    
+    @method_decorator(owner_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+    def get_success_url(self):
+        return reverse_lazy("accounts:profile", kwargs={
+            'slug': self.request.user.slug
+        })

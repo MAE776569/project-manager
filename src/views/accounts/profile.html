@@ -1,0 +1,80 @@
+{% extends 'base-layout.html' %}
+{% load static %}
+{% load media %}
+{% block title %}Profile{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/fontawesome-all.min.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="container profile-details container-alert">
+{% if messages %}
+{% include 'partials/alert-messages.html' %}
+{% endif %}
+</div>
+<div class="container jumbotron profile-details">
+    <div class="row">
+        <div class="col-12">
+            <img src="{% media_avatars user.avatar %}"
+                class="rounded d-block mx-auto profile-avatar" alt="user profile picture">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span class="profile-details-label">Name: </span>
+                        {{user.name}}
+                        <i class="fas fa-edit float-right"></i>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="profile-details-label d-block d-md-inline-block">
+                            Email: </span>
+                        {{user.email}}
+                        <i class="fas fa-edit float-right"></i>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="profile-details-label">Date joined: </span>
+                        {{user.date_joined}}
+                    </li>
+                    <li class="list-group-item">
+                        <form method="POST"
+                            action="{% url 'accounts:profile-picture-upload' user.slug %}"
+                            enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="col-12 text-center text-sm-left col-sm-6">
+                                    <input type="file" id="picture-upload" required
+                                        name="avatar" accept="image/*"
+                                        class="form-control-file picture-upload"/>
+                                    <label for="picture-upload"
+                                        class="picture-upload-label btn bg-primary-dark-color text-white theme-btn">
+                                        <i class="fas fa-upload"></i>
+                                        <span id="picture-upload-label-text">Upload picture...</span>
+                                    </label>
+                                    {% if form.avatar.errors %}
+                                    <div class="text-danger">
+                                        <small class="input-error-desc">{{form.avatar.errors.0}}</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-12 text-center text-sm-right col-sm-6">
+                                    <input type="submit" value="save" id="save-btn" disabled
+                                    class="btn save-btn theme-btn text-white bg-primary-dark-color" />
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="list-group-item">
+                        <a class="btn bg-primary-dark-color text-white theme-btn"
+                        href="{% url 'accounts:password-change' user.slug%}">Change password</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block body-scripts %}
+<script src="{% static 'scripts/accounts/profile.js' %}"></script>
+{% endblock %}

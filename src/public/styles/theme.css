@@ -49,6 +49,7 @@ label{
     top: 0;
     left: 0;
     right: 0;
+    z-index: 5000;
 }
 .off-canvas-nav{
     position: absolute;
@@ -94,8 +95,54 @@ label{
 .nav-ml{
     margin-left: 0!important;
 }
-.navbar-toggle-text{
+.navbar-toggle-text, .profile-details-label{
     font-weight: 600;
+}
+.mt-t-5{
+    margin-top: 5rem;
+}
+.profile-details{
+    width: 100%;
+}
+.container-alert .col{
+    padding-right: 0;
+    padding-left: 0;
+}
+.picture-upload {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.picture-upload-label{
+    display: inline-block;
+    cursor: pointer;
+    max-width: 100%;
+    min-width: 50%;
+    text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+.picture-upload:focus + .picture-upload-label{
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+.profile-avatar{
+    max-width: 200px;
+    max-height: 200px;
+}
+.save-btn{
+    padding-left: 2rem;
+    padding-right: 2rem;
+    min-width: 50%;
+}
+.theme-btn{
+    font-weight: 600;
+}
+.theme-btn:hover{
+    background-color: #4db6ac;
 }
 @media (min-width: 400px){ 
     .off-canvas-nav{
@@ -142,11 +189,17 @@ label{
         padding-right: 15px;
         padding-left: 15px;
     }
+    .profile-details{
+        width: 65%;
+    }
 }
 @media (min-width: 992px){
     .conf-label{
         font-size: 0.79em;
         padding-right: 0!important;
         padding-left: 0!important;
+    }
+    .profile-details{
+        width: 50%;
     }
 }

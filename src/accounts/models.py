@@ -4,6 +4,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.core.mail import send_mail
 from os import urandom
 from django.utils.text import slugify
+from os.path import splitext
 
 class UserManager(BaseUserManager):
 
@@ -22,6 +23,11 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fileds):
         return self._create_user(email, password, True, **extra_fileds)
 
+def user_directory_path(instance, filename):
+    image_name, image_ext = splitext(filename)
+    image_name += urandom(5).hex()
+    return 'avatars/{0}/{1}{2}'.format(instance.slug, image_name, image_ext)
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, blank=False)
     slug = models.SlugField(blank=True)
@@ -29,6 +35,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(blank=True, default=True)
     is_admin = models.BooleanField(blank=True, default=False)
     date_joined = models.DateField(blank=True, auto_now_add=True)
+    avatar = models.ImageField(blank=True, verbose_name="Profile Picture",
+        upload_to=user_directory_path, default="avatars/default-avatar-image.png")
 
     objects = UserManager()
 

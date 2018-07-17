@@ -40,8 +40,7 @@
                     href="#" role="button" aria-haspopup="true" aria-label="Toggle dropdown"
                         id="user-drop-down-toggler" aria-expanded="false">User</a>
                     <div class="dropdown-menu dashboard-dropdown collapse" id="user-dropdown-menu">
-                        <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="{% url 'accounts:profile' user.slug %}">Profile</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a>
                     </div>

@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
 from authentication.forms import get_password_help_text
 from django.core.validators import RegexValidator
+from django.contrib.auth import get_user_model
 
 class UserChangePasswordForm(PasswordChangeForm):
     old_password = forms.CharField(
@@ -37,3 +38,8 @@ class UserChangePasswordForm(PasswordChangeForm):
     def add_prefix(self, field_name):
         field_name = self.FIELD_NAME_MAPPING.get(field_name, field_name)
         return super().add_prefix(field_name)
+
+class ProfilePictureUploadForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ("avatar",)
