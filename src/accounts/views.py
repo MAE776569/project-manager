@@ -27,7 +27,7 @@ class PasswordChange(PasswordChangeView):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
-class ProfilePictureUpload(UpdateView):
+class ProfilePictureUpload(LoginRequiredMixin, UpdateView):
     http_method_names = ['post', 'put']
     model = get_user_model()
     form_class = ProfilePictureUploadForm

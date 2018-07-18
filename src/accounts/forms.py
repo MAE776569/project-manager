@@ -40,6 +40,12 @@ class UserChangePasswordForm(PasswordChangeForm):
         return super().add_prefix(field_name)
 
 class ProfilePictureUploadForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for key in self.fields:
+            self.fields[key].required = True 
+
     class Meta:
         model = get_user_model()
         fields = ("avatar",)

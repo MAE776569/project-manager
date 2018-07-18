@@ -80,6 +80,11 @@ label{
     right: 0;
     top: 0;
 }
+.notifications-dropdown{
+    position: absolute;
+    top: 100%;
+    right: 0;
+}
 .nav-bar-toggler-hide{
     display: none;
 }
@@ -143,6 +148,15 @@ label{
 }
 .theme-btn:hover{
     background-color: #4db6ac;
+}
+.nav-bar{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.grow{
+    flex-basis: 100%;
+    flex-grow: 1;
 }
 @media (min-width: 400px){ 
     .off-canvas-nav{

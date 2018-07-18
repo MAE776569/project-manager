@@ -14,7 +14,7 @@
 <div class="container jumbotron profile-details">
     <div class="row">
         <div class="col-12">
-            <img src="{% media_avatars user.avatar %}"
+            <img src="{% media_avatars user.avatar %}" id="profile-picture"
                 class="rounded d-block mx-auto profile-avatar" alt="user profile picture">
         </div>
     </div>
@@ -34,10 +34,6 @@
                         <i class="fas fa-edit float-right"></i>
                     </li>
                     <li class="list-group-item">
-                        <span class="profile-details-label">Date joined: </span>
-                        {{user.date_joined}}
-                    </li>
-                    <li class="list-group-item">
                         <form method="POST"
                             action="{% url 'accounts:profile-picture-upload' user.slug %}"
                             enctype="multipart/form-data">
@@ -52,11 +48,6 @@
                                         <i class="fas fa-upload"></i>
                                         <span id="picture-upload-label-text">Upload picture...</span>
                                     </label>
-                                    {% if form.avatar.errors %}
-                                    <div class="text-danger">
-                                        <small class="input-error-desc">{{form.avatar.errors.0}}</small>
-                                    </div>
-                                    {% endif %}
                                 </div>
                                 <div class="col-12 text-center text-sm-right col-sm-6">
                                     <input type="submit" value="save" id="save-btn" disabled
