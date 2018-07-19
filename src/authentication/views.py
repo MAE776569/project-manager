@@ -2,7 +2,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from .forms import LoginForm, RegistrationForm
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from .decorators import user_authenticated_redirect, verify_account, verify_user_account
+from .decorators import user_authenticated_redirect, verify_account, verify_user_account_registration
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.views.generic import TemplateView
@@ -37,7 +37,7 @@ class Registration(CreateView):
     form_class = RegistrationForm
     
     @transaction.atomic
-    @method_decorator(verify_user_account)
+    @method_decorator(verify_user_account_registration)
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 

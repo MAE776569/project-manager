@@ -3,6 +3,9 @@ from django.contrib.auth.forms import PasswordChangeForm
 from authentication.forms import get_password_help_text
 from django.core.validators import RegexValidator
 from django.contrib.auth import get_user_model
+from io import BytesIO
+from PIL import Image
+from os.path import splitext
 
 class UserChangePasswordForm(PasswordChangeForm):
     old_password = forms.CharField(
@@ -49,3 +52,13 @@ class ProfilePictureUploadForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ("avatar",)
+
+    def save(self, commit=True):
+        image_field = self.cleaned_data.get("avatar")
+        image = Image.open(BytesIO(image_field.read()))
+        size = 200, 200
+        image.thumbnail(size, Image.ANTIALIAS)
+        image_file = BytesIO()
+        image.save(image_file, image.format, optimize=True, quality=90)
+        image_field.file = image_file
+        return super().save(commit)

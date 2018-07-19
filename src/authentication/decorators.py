@@ -31,7 +31,7 @@ def verify_account(function):
         return function(request, *args, **kwargs)
     return wrapper
 
-def verify_user_account(function):
+def verify_user_account_registration(function):
     def wrapper(request, *args, **kwargs):
         uuid = request.GET.get("uid", None)
         if not uuid:

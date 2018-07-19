@@ -37,6 +37,9 @@ class ProfilePictureUpload(LoginRequiredMixin, UpdateView):
         return super().dispatch(request, *args, **kwargs)
     
     def get_success_url(self):
+        storage = messages.get_messages(self.request)
+        storage.used = True
+        messages.success(self.request, "Image has been uploaded successfully.")
         return reverse_lazy("accounts:profile", kwargs={
             'slug': self.request.user.slug
         })
