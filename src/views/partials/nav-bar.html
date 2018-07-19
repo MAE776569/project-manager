@@ -30,10 +30,15 @@
                         href="#" role="button" aria-haspopup="true" aria-label="Toggle dropdown"
                             id="admin-drop-down-toggler" aria-expanded="false">Admin</a>
                         <div class="dropdown-menu dashboard-dropdown collapse" id="admin-dropdown-menu">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="{% url 'accounts:trusted-users' %}">
+                                Trusted users
+                            </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a>
+                            <a class="dropdown-item" href="#">
+                                Add trusted user
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Send email</a>
                         </div>
                     </li>
                     {% endif %}
@@ -54,10 +59,10 @@
             </div>
         </div>
         {% if user.is_authenticated %}
-        <div class="navbar pl-md-0 ml-auto ml-md-0 py-0">
+        <div class="navbar pl-md-0 ml-auto ml-md-0 py-0 pr-0 pr-md-3">
             <ul class="nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="collapse"
+                    <a class="nav-link dropdown-toggle pr-0 pr-md-3" data-toggle="collapse"
                         href="#" role="button" aria-haspopup="true"
                         aria-label="Toggle dropdown" id="notifications-dropdown-toggler"
                         aria-expanded="false">

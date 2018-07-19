@@ -84,6 +84,9 @@ label{
     position: absolute;
     top: 100%;
     right: 0;
+    left: -130px;
+    padding-bottom: 0;
+    padding-top: 0;
 }
 .nav-bar-toggler-hide{
     display: none;

@@ -1,0 +1,66 @@
+{% extends 'base-layout.html' %}
+{% block title %}Trusted users{% endblock %}
+{% block content %}
+<div class="container container-alert">
+{% if messages %}
+{% include 'partials/alert-messages.html' %}
+{% endif %}
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                {% if trusted_users %}
+                <table class="table table-light table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                        <tbody>
+                        {% for user in trusted_users %}
+                            <tr>
+                                <td>{{user.name}}</td>
+                                <td>{{user.email}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </thead>
+                </table>
+            </div>
+            <div>
+                {% if is_paginated %}
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.previous_page_number}}">&laquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="disabled page-item">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                    {% endif %}
+                    <li class="page-item active">
+                        <span class="page-link">{{page_obj.number}}</span>
+                    </li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.next_page_number}}">&raquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="disabled page-item">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+            {% else %}
+            <p href="#" class="list-group-item">
+                No trusted users
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
