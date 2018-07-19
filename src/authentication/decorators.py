@@ -21,10 +21,10 @@ def verify_account(function):
         verified_account = None
         try:
             verified_account = AccountVerification.objects.get(uuid=uuid)
-            if verified_account.verified or not verified_account.verify_code(verification_code):
+            if verified_account.is_verified or not verified_account.verify_code(verification_code):
                 return HttpResponse(status=401)
             else:
-                verified_account.verified = True
+                verified_account.is_verified = True
                 verified_account.save()
         except:
             return HttpResponse(status=401)
@@ -38,7 +38,7 @@ def verify_user_account_registration(function):
             return HttpResponse(status=401)
         try:
             verified_account = AccountVerification.objects.get(uuid=uuid)
-            if not verified_account.verified:
+            if not verified_account.is_verified:
                 return HttpResponse(status=401)
         except:
             return HttpResponse(status=401)

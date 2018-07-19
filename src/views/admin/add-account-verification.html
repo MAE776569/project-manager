@@ -1,0 +1,91 @@
+{% extends 'base-layout.html' %}
+{% load static %}
+{% block title %}Add Account Verifications{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="card">
+                <div class="card-header bg-primary-color text-white">
+                    <h1>Add Account Verification</h1>
+                </div>
+                <div class="card-body">
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger col pb-0">
+                        <ul class="text-danger help-text-list">
+                            <li class="input-error-desc">{{error}}</li>
+                        </ul>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group form-row">
+                            <label class="col-form-label col-lg-2 text-lg-center"
+                                for="name">Name</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" id="name" name="{{form.name.html_name}}"
+                                        placeholder="Enter the user's name" required autofocus
+                                        class="form-control {% if form.name.errors %} input-error {% endif %}"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i id="name-icon" class="fas fa-times"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                {% if form.name.errors %}
+                                <div class="text-danger">
+                                    <small class="input-error-desc">{{form.name.errors.0}}</small>
+                                </div>
+                                {% endif %}
+                                {% if form.name.help_text %}
+                                <div class="form-text">
+                                    <small class="help-text">{{form.name.help_text|safe}}</small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label class="col-form-label col-lg-2 text-lg-center"
+                                for="email">Email</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" id="email" name="{{form.email.html_name}}"
+                                        placeholder="Enter the user's email" required
+                                        class="form-control {% if form.email.errors %} input-error {% endif %}"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i id="email-icon" class="fas fa-times"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                {% if form.email.errors %}
+                                <div class="text-danger">
+                                    <small class="input-error-desc">{{form.email.errors.0}}</small>
+                                </div>
+                                {% endif %}
+                                {% if form.email.help_text %}
+                                <div class="form-text">
+                                    <small class="help-text">{{form.email.help_text|safe}}</small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col offset-lg-2">
+                                <input type="submit" value="Add" class="btn bg-primary-color text-white" id="submit-btn" disabled/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block body-scripts %}
+<script src="{% static 'scripts/auth/validate-auth.js' %}"></script>
+<script src="{% static 'scripts/admin/validate-account-verification.js' %}"></script>
+{% endblock %}

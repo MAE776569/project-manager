@@ -11,26 +11,24 @@ function passwordValid(password) {
 function validateEmail(email, emailIcon) {
     if (email.hasClass('input-error'))
         email.removeClass('input-error');
-    if (emailValid(email)) {
-        emailIcon.removeClass();
+
+    emailIcon.removeClass();
+
+    if (emailValid(email))
         emailIcon.addClass("fas fa-check");
-    }
-    else {
-        emailIcon.removeClass();
+    else
         emailIcon.addClass("fas fa-times");
-    }
 }
 function validatePassword(password, passwordIcon) {
     if (password.hasClass('input-error'))
         password.removeClass('input-error');
-    if (passwordValid(password)) {
-        passwordIcon.removeClass();
+
+    passwordIcon.removeClass();
+
+    if (passwordValid(password)) 
         passwordIcon.addClass("fas fa-check");
-    }
-    else {
-        passwordIcon.removeClass();
+    else
         passwordIcon.addClass("fas fa-times");
-    }
 }
 function passwordConfirmationValid(password, confirmPassword) {
     return Boolean(confirmPassword.val() &&
@@ -41,12 +39,11 @@ function passwordConfirmationValid(password, confirmPassword) {
 function validatePasswordConfirmation(password, confirmPassword, confirmPasswordIcon) {
     if (confirmPassword.hasClass('input-error'))
         confirmPassword.removeClass('input-error');
-    if (passwordConfirmationValid(password, confirmPassword)) {
-        confirmPasswordIcon.removeClass();
+
+    confirmPasswordIcon.removeClass();
+
+    if (passwordConfirmationValid(password, confirmPassword))
         confirmPasswordIcon.addClass("fas fa-check");
-    }
-    else {
-        confirmPasswordIcon.removeClass();
+    else
         confirmPasswordIcon.addClass("fas fa-times");
-    }
 }

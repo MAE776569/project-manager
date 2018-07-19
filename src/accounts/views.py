@@ -5,7 +5,7 @@ from .decorators import owner_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.views import PasswordChangeView
 from .forms import UserChangePasswordForm, ProfilePictureUploadForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib import messages
 from django.views.generic.edit import UpdateView
 
@@ -21,11 +21,16 @@ class UserProfile(LoginRequiredMixin, DetailView):
 class PasswordChange(PasswordChangeView):
     template_name = 'accounts/password-change.html'
     form_class = UserChangePasswordForm
-    success_url = "/"
 
     @method_decorator(owner_required)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        storage = messages.get_messages(self.request)
+        storage.used = True
+        messages.success(self.request, "Your password has been changed successfully.")
+        return reverse('index')
 
 class ProfilePictureUpload(LoginRequiredMixin, UpdateView):
     http_method_names = ['post', 'put']

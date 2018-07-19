@@ -56,12 +56,12 @@ class Registration(CreateView):
             return HttpResponse(status=401)
         self.object = form.save()
         self.object.name = verified_account.name
+        self.object.is_registered = True
         self.object.save()
+        login(self.request, self.object)
         return HttpResponseRedirect(self.get_success_url())
 
-    @transaction.atomic
     def get_success_url(self, *args, **kwargs):
-        login(self.request, self.object)
         storage = messages.get_messages(self.request)
         storage.used = True
         messages.success(self.request, "Registered successfully.")

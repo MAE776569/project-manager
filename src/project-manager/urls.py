@@ -27,7 +27,7 @@ urlpatterns = [
     re_path(r"^$", IndexView.as_view(), name="index"),
     re_path(r"^auth/", include((auth_urls, 'authentication'), namespace="auth")),
     re_path(r"^accounts/", include((accounts_urls, 'accounts'), namespace="accounts")),
-    re_path(r"^admin/", include((admin_urls, 'admin'), namespace="admin"))
+    re_path(r"^admin/", include((admin_urls, 'admin'), namespace="administrator"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

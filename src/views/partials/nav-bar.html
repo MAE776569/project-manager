@@ -30,12 +30,12 @@
                         href="#" role="button" aria-haspopup="true" aria-label="Toggle dropdown"
                             id="admin-drop-down-toggler" aria-expanded="false">Admin</a>
                         <div class="dropdown-menu dashboard-dropdown collapse" id="admin-dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'accounts:trusted-users' %}">
-                                Trusted users
+                            <a class="dropdown-item" href="{% url 'accounts:account-verifications' %}">
+                                Account Verifications
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">
-                                Add trusted user
+                            <a class="dropdown-item" href="{% url 'accounts:add-account-verification' %}">
+                                Add account verification
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Send email</a>

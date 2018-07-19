@@ -1,27 +1,29 @@
 {% extends 'base-layout.html' %}
-{% block title %}Trusted users{% endblock %}
+{% block title %}Account Verifications{% endblock %}
 {% block content %}
-<div class="container container-alert">
-{% if messages %}
-{% include 'partials/alert-messages.html' %}
-{% endif %}
-</div>
 <div class="container">
+    {% if messages %}
+    {% include 'partials/alert-messages.html' %}
+    {% endif %}
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
-                {% if trusted_users %}
+                {% if account_verifications %}
                 <table class="table table-light table-bordered">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Is verified</th>
+                            <th scope="col">Is registered</th>
                         </tr>
                         <tbody>
-                        {% for user in trusted_users %}
+                        {% for account in account_verifications %}
                             <tr>
-                                <td>{{user.name}}</td>
-                                <td>{{user.email}}</td>
+                                <td>{{account.name}}</td>
+                                <td>{{account.email}}</td>
+                                <td>{{account.is_verified}}</td>
+                                <td>{{account.is_registered}}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -57,7 +59,7 @@
             </div>
             {% else %}
             <p href="#" class="list-group-item">
-                No trusted users
+                No account verifications
             </p>
             {% endif %}
         </div>

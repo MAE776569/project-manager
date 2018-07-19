@@ -15,7 +15,8 @@ class AccountVerification(models.Model):
     verification_code = models.CharField(max_length=64, blank=True)
     salt = models.CharField(max_length=32, blank=True, default=get_salt)
     uuid = models.UUIDField(unique=True, blank=True, default=uuid4)
-    verified = models.BooleanField(blank=True, default=False)
+    is_verified = models.BooleanField(blank=True, default=False)
+    is_registered = models.BooleanField(blank=True, default=False)
 
     def get_verification_code(self):
         if not self.verification_code:
