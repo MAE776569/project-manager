@@ -161,6 +161,14 @@ label{
     flex-basis: 100%;
     flex-grow: 1;
 }
+.header-link:visited{
+    color: transparent;
+    text-decoration: none;
+}
+.header-link:hover{
+    color: #4db6ac;
+    text-decoration: none;
+}
 @media (min-width: 400px){ 
     .off-canvas-nav{
         min-width: 55vw;

@@ -1,0 +1,76 @@
+{% extends 'base-layout.html' %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="card">
+                <div class="card-header bg-primary-color text-white">
+                    <h1>{{title}}</h1>
+                </div>
+                <div class="card-body">
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger col pb-0">
+                        <ul class="text-danger help-text-list">
+                            <li class="input-error-desc">{{error}}</li>
+                        </ul>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group form-row">
+                            <label class="col-form-label col-lg-2 text-lg-center"
+                                for="title">Title</label>
+                            <div class="col-lg-10">
+                                <input type="text" id="title" name="{{form.title.html_name}}"
+                                    placeholder="Enter the track's title" required autofocus value="{{form.initial.title}}"
+                                    class="form-control {% if form.title.errors %} input-error {% endif %}"/>
+                                {% if form.title.errors %}
+                                <div class="text-danger">
+                                    <small class="input-error-desc">{{form.title.errors.0}}</small>
+                                </div>
+                                {% endif %}
+                                {% if form.title.help_text %}
+                                <div class="form-text">
+                                    <small class="help-text">{{form.title.help_text|safe}}</small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label class="col-form-label col-lg-2 text-lg-center"
+                                for="description">Description</label>
+                            <div class="col-lg-10">
+                                <textarea id="description" name="{{form.description.html_name}}"
+                                    placeholder="Enter the track's description" required rows="5"
+                                    class="form-control {% if form.description.errors %} input-error {% endif %}">{{form.initial.description}}</textarea>
+                                {% if form.description.errors %}
+                                <div class="text-danger">
+                                    <small class="input-error-desc">{{form.description.errors.0}}</small>
+                                </div>
+                                {% endif %}
+                                {% if form.description.help_text %}
+                                <div class="form-text">
+                                    <small class="help-text">{{form.description.help_text|safe}}</small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col offset-lg-2">
+                                <input type="submit" value="{{title}}" class="btn bg-primary-color text-white" id="submit-btn"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block body-scripts %}
+<script src="{% static 'scripts/tracks/validate-form.js' %}"></script>
+{% endblock %}

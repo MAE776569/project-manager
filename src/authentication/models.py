@@ -52,3 +52,6 @@ class AccountVerification(models.Model):
     class Meta:
         verbose_name = 'account verification'
         verbose_name_plural = 'accounts verification'
+
+    def __str__(self):
+        return self.email

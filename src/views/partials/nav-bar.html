@@ -19,7 +19,7 @@
                         <a class="nav-link" href="#">Addtional Links</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tracks</a>
+                        <a class="nav-link" href="{% url 'tracks:tracks-list' %}">Tracks</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Wiki</a>
@@ -36,6 +36,10 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'accounts:add-account-verification' %}">
                                 Add account verification
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'tracks:create-track' %}">
+                                Add track
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Send email</a>

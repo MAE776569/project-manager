@@ -1,0 +1,74 @@
+{% extends 'base-layout.html' %}
+{% block title %}Tracks{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-7">
+            {% if messages %}
+            {% include 'partials/alert-messages.html' %}
+            {% endif %}
+        </div>
+        <div class="col-12 col-md-10 col-lg-7">
+            {% if tracks %}
+            {% for track in tracks %}
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        <a class="header-link" href="{% url 'tracks:topics' track.slug %}">
+                            {{track.title}}
+                        </a>
+                    </h2>
+                    <h5 class="card-subtitle mb-2 text-muted">
+                        {{track.number_of_topics}} topic{{track.number_of_topics|pluralize}}
+                    </h5>
+                    <p class="card-text">{{track.description}}</p>
+                    {% if user.is_admin %}
+                    <div class="dropdown-divider"></div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-info"
+                            href="{% url 'tracks:edit-track' track.slug %}">Edit</a>
+                        <a class="btn btn-danger"
+                            href="{% url 'tracks:delete-track' track.slug %}">Delete</a>
+                        <a class="btn btn-secondary"
+                            href="#{% url 'tracks:edit-track' track.slug %}">Add topic</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            <div>
+                {% if is_paginated %}
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.previous_page_number}}">&laquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="disabled page-item">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                    {% endif %}
+                    <li class="page-item active">
+                        <span class="page-link">{{page_obj.number}}</span>
+                    </li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.next_page_number}}">&raquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="disabled page-item">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+            {% else %}
+            <p href="#" class="list-group-item">
+                No tracks added
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
