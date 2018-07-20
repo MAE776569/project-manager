@@ -18,21 +18,21 @@ from django.urls import include, re_path, path
 from decouple import config
 from authentication import urls as auth_urls
 from accounts import urls as accounts_urls
+from tracks import urls as tracks_urls
 from authentication.views import IndexView
 from django.conf import settings
 from django.conf.urls.static import static
-from administrator import urls as admin_urls
 
 urlpatterns = [
     re_path(r"^$", IndexView.as_view(), name="index"),
     re_path(r"^auth/", include((auth_urls, 'authentication'), namespace="auth")),
     re_path(r"^accounts/", include((accounts_urls, 'accounts'), namespace="accounts")),
-    re_path(r"^admin/", include((admin_urls, 'admin'), namespace="administrator"))
+    re_path(r"^tracks/", include((tracks_urls, 'tracks'), namespace="tracks"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if config('ENVIRONMENT', cast=str) == 'dev':
+if settings.DEBUG:
     urlpatterns += [
         path('admin/', admin.site.urls)
     ]
