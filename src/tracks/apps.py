@@ -5,4 +5,4 @@ class TracksConfig(AppConfig):
     name = 'tracks'
 
     def ready(self):
-        import .signals
+        import tracks.signals

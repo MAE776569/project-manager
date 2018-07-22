@@ -141,13 +141,11 @@ label{
     max-width: 200px;
     max-height: 200px;
 }
-.save-btn{
-    padding-left: 2rem;
-    padding-right: 2rem;
-    min-width: 50%;
-}
 .theme-btn{
     font-weight: 600;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 55%;
 }
 .theme-btn:hover{
     background-color: #4db6ac;
@@ -161,6 +159,9 @@ label{
     flex-basis: 100%;
     flex-grow: 1;
 }
+.header-link{
+    color: black;
+}
 .header-link:visited{
     color: transparent;
     text-decoration: none;
@@ -168,6 +169,10 @@ label{
 .header-link:hover{
     color: #4db6ac;
     text-decoration: none;
+}
+.embed-topic-video{
+    width: 100%;
+    min-height: 500px;
 }
 @media (min-width: 400px){ 
     .off-canvas-nav{
@@ -180,6 +185,9 @@ label{
     }
     .off-canvas-nav{
         min-width: 40vw;
+    }
+    .theme-btn{
+        width: auto;
     }
 }
 @media  (min-width: 768px){

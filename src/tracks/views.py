@@ -4,19 +4,32 @@ from .models import Track, Topic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from administrator.decorators import admin_required
 from django.utils.decorators import method_decorator
-from django.urls import reverse
-from .forms import TrackForm
+from django.urls import reverse, reverse_lazy
+from .forms import TrackForm, TopicForm
 from django.contrib import messages
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, HttpResponseRedirect
+from django.views.generic.detail import DetailView
+from django.db import transaction
 
 class TracksList(LoginRequiredMixin, ListView):
     model = Track
     context_object_name = 'tracks'
     template_name = 'tracks/tracks-list.html'
-    paginate_by = 5
+    paginate_by = 3
 
+    @transaction.atomic
     def get_queryset(self):
-        return Track.objects.all().order_by('created_at')
+        query = """select track.*,
+                count(completed_topic.*)/track.number_of_topics
+                as completed_topics_ratio
+                from track
+                join topic on topic.track_id=track.id
+                left outer join completed_topic
+                on topic.id = completed_topic.topic_id
+                and completed_topic.user_id={0}
+                group by track.id
+                order by track.created_at;""".format(self.request.user.id)
+        return list(Track.objects.raw(query))
 
 class CreateTrack(LoginRequiredMixin, CreateView):
     model = Track
@@ -76,10 +89,102 @@ class TopicsList(LoginRequiredMixin, ListView):
     model = Topic
     context_object_name = 'topics'
     template_name = 'topics/topics-list.html'
-    paginate_by = 5
+    paginate_by = 3
 
+    @transaction.atomic
     def get_queryset(self):
         track = get_object_or_404(Track, slug=self.kwargs['slug'])
-        return Topic.objects.filter(track=track).order_by('created_at')
 
-#TODO: add create view and override get_object
+        query = """select case when completed_topic.topic_id is null
+                then false else true end completed,
+                topic.* from completed_topic
+                right outer join topic
+                on completed_topic.topic_id=topic.id
+                and completed_topic.user_id={0}
+                where topic.track_id={1}
+                order by
+                topic.created_at;""".format(self.request.user.id, track.id)
+        return list(Topic.objects.raw(query))
+
+class AddTopic(LoginRequiredMixin, CreateView):
+    model = Topic
+    template_name = 'topics/topic-form.html'
+    form_class = TopicForm
+
+    @method_decorator(admin_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.track = get_object_or_404(Track, slug=self.kwargs['slug'])
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Add topic"
+        return context
+
+    def get_success_url(self):
+        storage = messages.get_messages(self.request)
+        storage.used = True
+        messages.success(self.request, "A new topic has been added successfully.")
+        return reverse_lazy('tracks:topics',
+            kwargs={
+                'slug': self.kwargs['slug']
+            }
+        )
+
+class EditTopic(LoginRequiredMixin, UpdateView):
+    model = Topic
+    template_name = 'topics/topic-form.html'
+    form_class = TrackForm
+
+    @method_decorator(admin_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Edit topic"
+        return context
+
+    #if blank is changed in form this will be deleted
+    def get_initial(self):
+        initial = self.initial.copy()
+        initial["video_url"] = self.object.video_url
+        return initial
+
+    def get_success_url(self):
+        storage = messages.get_messages(self.request)
+        storage.used = True
+        messages.success(self.request, "topic has been updated successfully.")
+        return reverse_lazy('tracks:topics',
+            kwargs={
+                'slug': self.object.track.slug
+            }
+        )
+
+class DeleteTopic(LoginRequiredMixin, DeleteView):
+    model = Topic
+    template_name = 'topics/confirm-delete.html'
+
+    @method_decorator(admin_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        storage = messages.get_messages(self.request)
+        storage.used = True
+        messages.success(self.request, "Topic has been deleted successfully.")
+        return reverse_lazy('tracks:topics',
+            kwargs={
+                'slug': self.object.track.slug
+            }
+        )
+
+class TopicDetails(LoginRequiredMixin, DetailView):
+    model = Topic
+    template_name = 'topics/topic-details.html'
+    context_object_name = 'topic'

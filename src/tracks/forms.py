@@ -13,8 +13,9 @@ class TrackForm(forms.ModelForm):
 class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'video_url']
         help_texts = {
             'title': "Title must be unique for topic.",
-            'description': "Add a detailed description to the topic."
+            'description': "Add a detailed description to the topic.",
+            'video_url': "The video that demonstrates the topic."
         }

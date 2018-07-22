@@ -30,7 +30,7 @@ def user_directory_path(instance, filename):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, blank=False)
-    slug = models.SlugField(blank=True)
+    slug = models.SlugField(blank=True, unique=True)
     name = models.CharField(max_length=100, blank=True)
     is_active = models.BooleanField(blank=True, default=True)
     is_admin = models.BooleanField(blank=True, default=False)
@@ -44,6 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
+        db_table = 'user'
         verbose_name = 'user'
         verbose_name_plural = 'users'
 

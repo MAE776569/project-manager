@@ -9,19 +9,36 @@
             {% endif %}
         </div>
         <div class="col-12 col-md-10 col-lg-7">
-            {% if tracks %}
+            {% if topics %}
             {% for topic in topics %}
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title">{{topic.title}}</h2>
-                    <p class="card-text">{{topic.description}}</p>
+                    <h2 class="card-title">
+                        <a class="header-link" href="{% url 'tracks:topic-details' topic.slug %}">
+                            {{topic.title}}
+                        </a>
+                    </h2>
+                    <div class="card-text">
+                        <p>{{topic.description}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="px-3">
+                            <span class="mr-2">Completed</span>
+                            <span class="badge badge-pill badge-info">
+                                {% if topic.completed %}
+                                <i class="fas fa-check-circle"></i>
+                                {% else %}
+                                <i class="fas fa-times"></i>
+                                {% endif %}
+                            </span>
+                        </p>
+                    </div>
                     {% if user.is_admin %}
                     <div class="dropdown-divider"></div>
                     <div class="btn-group" role="group">
                         <a class="btn btn-info"
-                            href="#{% url 'tracks:edit-track' track.slug %}">Edit</a>
+                            href="{% url 'tracks:edit-topic' topic.slug %}">Edit</a>
                         <a class="btn btn-danger"
-                            href="#{% url 'tracks:delete-track' track.slug %}">Delete</a>
+                            href="{% url 'tracks:delete-topic' topic.slug %}">Delete</a>
                     </div>
                     {% endif %}
                 </div>

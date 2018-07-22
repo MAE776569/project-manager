@@ -9,14 +9,14 @@
                     <h4>Confirm delete</h4>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Are you sure you want to delete that track?</p>
+                    <p class="card-text">Are you sure you want to delete that topic?</p>
                     <div class="dropdown-divider"></div>
-                    <form method="POST" action="{% url 'tracks:delete-track' object.slug %}"
+                    <form method="POST" action="{% url 'tracks:delete-topic' object.slug %}"
                         class="d-inline-block">
                         {% csrf_token %}
                         <input type="submit" value="Confirm" class="btn btn-info text-white"/>
                     </form>
-                    <a href="{% url 'tracks:tracks-list' %}"
+                    <a href="{% url 'tracks:topics' object.track.slug %}"
                         class="card-link btn btn-secondary float-right">Cancel</a>
                 </div>
             </div>

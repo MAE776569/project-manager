@@ -1,0 +1,23 @@
+{% extends 'base-layout.html' %}
+{% block title %}{{topic.title}}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">{{topic.title}}</h2>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <iframe type="text/html" class="embed-topic-video"
+                            allowfullscreen sandbox="allow-scripts allow-same-origin"
+                            src="https://www.youtube.com/embed/{{topic.get_video_id}}?controls=1&fs=1&color=white&rel=0"
+                            frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

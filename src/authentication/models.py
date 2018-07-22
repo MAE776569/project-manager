@@ -13,7 +13,7 @@ class AccountVerification(models.Model):
     name = models.CharField(max_length=100, blank=False)
     email = models.EmailField(unique=True, blank=False)
     verification_code = models.CharField(max_length=64, blank=True)
-    salt = models.CharField(max_length=32, blank=True, default=get_salt)
+    salt = models.CharField(max_length=32, unique=True, blank=True, default=get_salt)
     uuid = models.UUIDField(unique=True, blank=True, default=uuid4)
     is_verified = models.BooleanField(blank=True, default=False)
     is_registered = models.BooleanField(blank=True, default=False)
@@ -50,6 +50,7 @@ class AccountVerification(models.Model):
         return hmac.compare_digest(self.verification_code, hashed_code.hexdigest())
 
     class Meta:
+        db_table = 'account_verification'
         verbose_name = 'account verification'
         verbose_name_plural = 'accounts verification'
 

@@ -11,7 +11,7 @@
         <div class="col-12 col-md-10 col-lg-7">
             {% if tracks %}
             {% for track in tracks %}
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-body">
                     <h2 class="card-title">
                         <a class="header-link" href="{% url 'tracks:topics' track.slug %}">
@@ -21,7 +21,23 @@
                     <h5 class="card-subtitle mb-2 text-muted">
                         {{track.number_of_topics}} topic{{track.number_of_topics|pluralize}}
                     </h5>
-                    <p class="card-text">{{track.description}}</p>
+                    <div class="card-text">
+                        <p>{{track.description}}</p>
+                        <div class="dropdown-divider"></div>
+                        <p>
+                            Progress:
+                            <span class="badge badge-pill badge-info">
+                                {{track.completed_topics_ratio}}%
+                            </span>
+                            <div class="progress">
+                                <div class="progress-bar"
+                                    style="width: {{track.completed_topics_ratio}}%;"
+                                    role="progressbar"
+                                    aria-valuenow="{{track.completed_topics_ratio}}"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </p>
+                    </div>
                     {% if user.is_admin %}
                     <div class="dropdown-divider"></div>
                     <div class="btn-group" role="group">
@@ -30,7 +46,7 @@
                         <a class="btn btn-danger"
                             href="{% url 'tracks:delete-track' track.slug %}">Delete</a>
                         <a class="btn btn-secondary"
-                            href="#{% url 'tracks:edit-track' track.slug %}">Add topic</a>
+                            href="{% url 'tracks:add-topic' track.slug %}">Add topic</a>
                     </div>
                     {% endif %}
                 </div>
