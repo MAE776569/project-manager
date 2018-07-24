@@ -8,8 +8,8 @@ from django.urls import reverse, reverse_lazy
 from .forms import TrackForm, TopicForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
-from django.views.generic.detail import DetailView
 from django.db import transaction
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 class TracksList(LoginRequiredMixin, ListView):
     model = Track
@@ -17,19 +17,8 @@ class TracksList(LoginRequiredMixin, ListView):
     template_name = 'tracks/tracks-list.html'
     paginate_by = 3
 
-    @transaction.atomic
     def get_queryset(self):
-        query = """select track.*,
-                count(completed_topic.*)/track.number_of_topics
-                as completed_topics_ratio
-                from track
-                join topic on topic.track_id=track.id
-                left outer join completed_topic
-                on topic.id = completed_topic.topic_id
-                and completed_topic.user_id={0}
-                group by track.id
-                order by track.created_at;""".format(self.request.user.id)
-        return list(Track.objects.raw(query))
+        return Track.objects.all().order_by('created_at')
 
 class CreateTrack(LoginRequiredMixin, CreateView):
     model = Track
@@ -154,6 +143,7 @@ class EditTopic(LoginRequiredMixin, UpdateView):
     def get_initial(self):
         initial = self.initial.copy()
         initial["video_url"] = self.object.video_url
+        initial['note'] = self.object.note
         return initial
 
     def get_success_url(self):
@@ -184,7 +174,24 @@ class DeleteTopic(LoginRequiredMixin, DeleteView):
             }
         )
 
-class TopicDetails(LoginRequiredMixin, DetailView):
+class TopicDetails(LoginRequiredMixin, ListView):
     model = Topic
     template_name = 'topics/topic-details.html'
     context_object_name = 'topic'
+       
+    @method_decorator(ensure_csrf_cookie)
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        topic = get_object_or_404(Topic, slug=self.kwargs['slug'])
+        query = """select id, prev_slug, title, description,
+                    slug, next_slug, track_id
+                    from (
+                        select id, track_id, title, description, slug, 
+                        lag(slug) over (order by created_at) as prev_slug,
+                        lead(slug) over (order by created_at) as next_slug
+                        from topic where track_id={0}
+                    ) as anything
+                    where slug='{1}';""".format(topic.track_id, self.kwargs['slug'])
+        return list(Topic.objects.raw(query))

@@ -1,23 +1,48 @@
 {% extends 'base-layout.html' %}
-{% block title %}{{topic.title}}{% endblock %}
+{% load static %}
+{% block title %}{{topic.0.title}}{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/plyr.css' %}" />
+{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="text-center">{{topic.title}}</h2>
+                    <h2 class="text-center">{{topic.0.title}}</h2>
                 </div>
                 <div class="card-body">
-                    <div>
+                    <div class="plyr__video-embed" id="player">
                         <iframe type="text/html" class="embed-topic-video"
-                            allowfullscreen sandbox="allow-scripts allow-same-origin"
-                            src="https://www.youtube.com/embed/{{topic.get_video_id}}?controls=1&fs=1&color=white&rel=0"
-                            frameborder="0"></iframe>
+                            allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"
+                            src="https://www.youtube.com/embed/{{topic.0.get_video_id}}?controls=1&fs=1&color=white&rel=0"
+                            frameborder="0" id="embed-video" allowtransparency></iframe>
                     </div>
+                </div>
+                <div class="card-footer">
+                    {% if topic.0.prev_slug or topic.0.next_slug%}
+                    {% if topic.0.prev_slug %}
+                    <a class="btn btn-outline-success"
+                        href="{% url 'tracks:topic-details' topic.0.prev_slug %}">
+                        Previous topic</a>
+                    {% endif %}
+                    {% if topic.0.next_slug %}
+                    <a class="btn btn-outline-success float-right"
+                        href="{% url 'tracks:topic-details' topic.0.next_slug %}">
+                        Next topic</a>
+                    {% endif %}
+                    {% else %}
+                        <p class="card-text">No other topics</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+{% block body-scripts %}
+<script src="{% static 'scripts/js-cookie.js' %}"></script>
+<script src="{% static 'scripts/plyr.polyfilled.min.js' %}"></script>
+<script src="{% static 'scripts/topics/topic-details.js' %}"></script>
 {% endblock %}

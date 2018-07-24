@@ -1,4 +1,5 @@
 {% extends 'base-layout.html' %}
+{% load track_progress %}
 {% block title %}Tracks{% endblock %}
 {% block content %}
 <div class="container">
@@ -27,11 +28,11 @@
                         <p>
                             Progress:
                             <span class="badge badge-pill badge-info">
-                                {{track.completed_topics_ratio}}%
+                                {{track|get_track_progress:user}}%
                             </span>
                             <div class="progress">
                                 <div class="progress-bar"
-                                    style="width: {{track.completed_topics_ratio}}%;"
+                                    style="width: {{track|get_track_progress:user}}%;"
                                     role="progressbar"
                                     aria-valuenow="{{track.completed_topics_ratio}}"
                                     aria-valuemin="0" aria-valuemax="100"></div>

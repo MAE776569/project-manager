@@ -44,7 +44,7 @@
                             <label class="col-form-label col-lg-2 text-lg-center"
                                 for="video_url">Video url</label>
                             <div class="col-lg-10">
-                                <input type="text" id="video_url" name="{{form.video_url.html_name}}"
+                                <input type="url" id="video_url" name="{{form.video_url.html_name}}"
                                     placeholder="Enter the topic's video url" value="{{form.initial.video_url}}"
                                     class="form-control {% if form.video_url.errors %} input-error {% endif %}"/>
                                 {% if form.video_url.errors %}
@@ -89,4 +89,7 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block body-scripts %}
+<script src="{% static 'scripts/tracks/validate-form.js' %}"></script>
 {% endblock %}

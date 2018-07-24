@@ -11,7 +11,7 @@
         <div class="col-12 col-md-10 col-lg-7">
             {% if topics %}
             {% for topic in topics %}
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-body">
                     <h2 class="card-title">
                         <a class="header-link" href="{% url 'tracks:topic-details' topic.slug %}">

@@ -16,3 +16,4 @@ description.on('input', function () {
     else
         submitBtn.disabled = true;
 });
+title.trigger('input');
