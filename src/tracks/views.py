@@ -10,6 +10,10 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.db import transaction
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.generic.base import TemplateView
+from django.shortcuts import get_object_or_404
+from .decorators import owner_or_admin_required
+from django.contrib.auth import get_user_model
 
 class TracksList(LoginRequiredMixin, ListView):
     model = Track
@@ -195,3 +199,43 @@ class TopicDetails(LoginRequiredMixin, ListView):
                     ) as anything
                     where slug='{1}';""".format(topic.track_id, self.kwargs['slug'])
         return list(Topic.objects.raw(query))
+
+class TracksProgress(LoginRequiredMixin, TemplateView):
+    template_name = 'tracks/tracks-progress.html'
+
+    @method_decorator(owner_or_admin_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_account'] = get_object_or_404(get_user_model(),
+            slug=self.kwargs['slug'])
+        context['tracks'] = Track.objects.all().order_by('created_at')
+        return context
+
+class TopicsProgress(LoginRequiredMixin, TemplateView):
+    template_name = 'topics/topics-progress.html'
+    
+    @method_decorator(owner_or_admin_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        track = get_object_or_404(Track, slug=self.kwargs['track_slug'])
+        user = get_object_or_404(get_user_model(),
+            slug=self.kwargs['user_slug'])
+
+        query = """select case when completed_topic.topic_id is null
+                then false else true end completed,
+                topic.* from completed_topic
+                right outer join topic
+                on completed_topic.topic_id=topic.id
+                and completed_topic.user_id={0}
+                where topic.track_id={1}
+                order by
+                topic.created_at;""".format(user.id, track.id)
+
+        context['topics'] = list(Topic.objects.raw(query))
+        return context

@@ -1,0 +1,42 @@
+{% extends 'base-layout.html' %}
+{% load track_progress %}
+{% block title %}{{user_account.name}} progress{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-7">
+            {% for track in tracks %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a class="header-link"
+                        href="{% url 'tracks:topics-progress' track.slug user_account.slug %}">
+                            {{track.title}}
+                        </a>
+                    </h4>
+                    <div class="card-text">
+                        <p>
+                            Progress:
+                            <span class="badge badge-pill badge-info">
+                                {{track|get_track_progress:user_account}}%
+                            </span>
+                            <div class="progress">
+                                <div class="progress-bar"
+                                    style="width: {{track|get_track_progress:user_account}}%;"
+                                    role="progressbar"
+                                    aria-valuenow="{{track.completed_topics_ratio}}"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="list-group-item">
+                No tracks added
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -57,3 +57,15 @@ class VerificationLink(LoginRequiredMixin, DetailView):
             return context
         except ValueError:
             raise PermissionDenied
+
+class UsersList(LoginRequiredMixin, ListView):
+    model = get_user_model()
+    template_name = 'admin/users-list.html'
+    context_object_name = 'users'
+
+    @method_decorator(admin_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.model.objects.filter(is_admin=False).order_by('email')

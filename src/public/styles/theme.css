@@ -170,9 +170,11 @@ label{
     color: #4db6ac;
     text-decoration: none;
 }
-.embed-topic-video{
+.off-canvas-ul{
     width: 100%;
-    min-height: 500px;
+}
+.off-canvas-dropdown{
+    width: 100%;
 }
 @media (min-width: 400px){ 
     .off-canvas-nav{
@@ -224,6 +226,9 @@ label{
     }
     .profile-details{
         width: 65%;
+    }
+    .off-canvas-dropdown{
+        width: auto;
     }
 }
 @media (min-width: 992px){
