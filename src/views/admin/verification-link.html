@@ -1,0 +1,16 @@
+{% extends 'base-layout.html' %}
+{% block title %}Vrification Link{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h2>Verification link</h2>
+        <p class="lead">A new verification account has been added successfully.</p>
+        <hr class="my-4">
+        <p>Send this link to the user to complete the registeration.</p>
+        <p>Note that this link is only usable once and you can't refer to it once again.</p>
+        <p class="lead">
+            {% url 'auth:verify' %}?vfc={{verification_code}}&uid={{account.uuid}}
+        </p>
+    </div>
+</div>
+{% endblock %}

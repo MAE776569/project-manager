@@ -8,8 +8,10 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from authentication.models import AccountVerification
 from .forms import AddAccountVerificationForm
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.contrib import messages
+from django.views.generic.detail import DetailView
+from django.core.exceptions import PermissionDenied
 
 class AccountVerificationsList(LoginRequiredMixin, ListView):
     model = AccountVerification
@@ -33,10 +35,25 @@ class AddAccountVerification(LoginRequiredMixin, CreateView):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
-    #TODO: send email when the form is valid for verification
-
     def get_success_url(self):
-        storage = messages.get_messages(self.request)
-        storage.used = True
-        messages.success(self.request, "New account verification has been added successfully.")
-        return reverse("accounts:account-verifications")
+        return reverse_lazy("accounts:verification-link", kwargs={
+            'slug': str(self.object.uuid)
+        })
+
+class VerificationLink(LoginRequiredMixin, DetailView):
+    model = AccountVerification
+    template_name = 'admin/verification-link.html'
+    context_object_name = 'account'
+    slug_field = 'uuid'
+    
+    @method_decorator(admin_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['verification_code'] = self.object.get_verification_code()
+            return context
+        except ValueError:
+            raise PermissionDenied

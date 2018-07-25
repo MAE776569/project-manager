@@ -1,8 +1,8 @@
-from django.shortcuts import HttpResponse
+from django.core.exceptions import PermissionDenied
 
 def owner_required(function):
     def wrapper(request, *args, **kwargs):
         if request.user.slug != kwargs["slug"]:
-            return HttpResponse(status=401)
+            raise PermissionDenied
         return function(request, *args, **kwargs)
     return wrapper

@@ -1,8 +1,8 @@
-from django.shortcuts import HttpResponse
+from django.core.exceptions import PermissionDenied
 
 def admin_required(function):
     def wrapper(request, *args, **kwargs):
         if not request.user.is_admin:
-            return HttpResponse(status=401)
+            raise PermissionDenied
         return function(request, *args, **kwargs)
     return wrapper

@@ -1,12 +1,15 @@
-from django.urls import re_path
+from django.urls import re_path, path
 from .views import UserProfile, PasswordChange, ProfilePictureUpload
-from administrator.views import AccountVerificationsList, AddAccountVerification
+from administrator.views import (AccountVerificationsList,
+    AddAccountVerification, VerificationLink)
 
 urlpatterns = [
     re_path(r"account-verifications/$", AccountVerificationsList.as_view(),
         name="account-verifications"),
     re_path(r"add-account-verification/$", AddAccountVerification.as_view(),
         name="add-account-verification"),
+    path(r"verify-link/<slug>/", VerificationLink.as_view(),
+        name="verification-link"),
     re_path(r"(?P<slug>[-\w]+)/change-password/$", PasswordChange.as_view(),
         name="password-change"),
     re_path(r"(?P<slug>[-\w]+)/profile-picture-upload/$",

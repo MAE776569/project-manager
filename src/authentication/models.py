@@ -34,10 +34,8 @@ class AccountVerification(models.Model):
                 digestmod=sha256)
             self.verification_code = saved_code.hexdigest()
             self.save()
-            return {
-                "vfc": hashed_user_code,
-                "uuid": self.uuid
-            }
+            #get that once the verification account is created
+            return hashed_user_code
         else:
             raise ValueError("account already have a verification code")
 

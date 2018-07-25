@@ -1,6 +1,7 @@
-from django.shortcuts import redirect, HttpResponse
+from django.shortcuts import redirect
 from .models import AccountVerification
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied, ValidationError
 
 def user_authenticated_redirect(function):
     def wrapper(request, *args, **kwargs):
@@ -17,17 +18,17 @@ def verify_account(function):
         verification_code = request.GET.get('vfc', None)
         uuid = request.GET.get('uid', None)
         if not verification_code or not uuid:
-            return HttpResponse(status=401)
+            raise PermissionDenied
         verified_account = None
         try:
             verified_account = AccountVerification.objects.get(uuid=uuid)
             if verified_account.is_verified or not verified_account.verify_code(verification_code):
-                return HttpResponse(status=401)
+                raise PermissionDenied
             else:
                 verified_account.is_verified = True
                 verified_account.save()
-        except:
-            return HttpResponse(status=401)
+        except (AccountVerification.DoesNotExist, ValueError, ValidationError) as exc:
+            raise PermissionDenied
         return function(request, *args, **kwargs)
     return wrapper
 
@@ -35,12 +36,12 @@ def verify_user_account_registration(function):
     def wrapper(request, *args, **kwargs):
         uuid = request.GET.get("uid", None)
         if not uuid:
-            return HttpResponse(status=401)
+            raise PermissionDenied
         try:
             verified_account = AccountVerification.objects.get(uuid=uuid)
             if not verified_account.is_verified:
-                return HttpResponse(status=401)
-        except:
-            return HttpResponse(status=401)
+                raise PermissionDenied
+        except (AccountVerification.DoesNotExist, ValueError, ValidationError) as exc:
+            raise PermissionDenied
         return function(request, *args, **kwargs)
     return wrapper
