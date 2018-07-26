@@ -12,7 +12,7 @@ from django.views.generic.edit import UpdateView
 class UserProfile(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'accounts/profile.html'
-    context_object_name = "user"
+    context_object_name = "user_account"
 
     @method_decorator(owner_required)
     def dispatch(self, request, *args, **kwargs):

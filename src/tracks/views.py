@@ -10,7 +10,6 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.db import transaction
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.generic.base import TemplateView
 from django.shortcuts import get_object_or_404
 from .decorators import owner_or_admin_required
 from django.contrib.auth import get_user_model
@@ -200,29 +199,36 @@ class TopicDetails(LoginRequiredMixin, ListView):
                     where slug='{1}';""".format(topic.track_id, self.kwargs['slug'])
         return list(Topic.objects.raw(query))
 
-class TracksProgress(LoginRequiredMixin, TemplateView):
+class TracksProgress(LoginRequiredMixin, ListView):
+    model = Track
     template_name = 'tracks/tracks-progress.html'
+    context_object_name = 'tracks'
+    paginate_by = 3
 
     @method_decorator(owner_or_admin_required)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return Track.objects.all().order_by('created_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_account'] = get_object_or_404(get_user_model(),
             slug=self.kwargs['slug'])
-        context['tracks'] = Track.objects.all().order_by('created_at')
         return context
 
-class TopicsProgress(LoginRequiredMixin, TemplateView):
+class TopicsProgress(LoginRequiredMixin, ListView):
+    model = Topic
     template_name = 'topics/topics-progress.html'
+    context_object_name = 'topics'
+    paginate_by = 3
     
     @method_decorator(owner_or_admin_required)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_queryset(self):
         track = get_object_or_404(Track, slug=self.kwargs['track_slug'])
         user = get_object_or_404(get_user_model(),
             slug=self.kwargs['user_slug'])
@@ -237,5 +243,4 @@ class TopicsProgress(LoginRequiredMixin, TemplateView):
                 order by
                 topic.created_at;""".format(user.id, track.id)
 
-        context['topics'] = list(Topic.objects.raw(query))
-        return context
+        return list(Topic.objects.raw(query))

@@ -17,7 +17,7 @@ class AccountVerificationsList(LoginRequiredMixin, ListView):
     model = AccountVerification
     context_object_name = 'account_verifications'
     template_name = 'admin/account-verifications.html'
-    paginate_by = 10
+    paginate_by = 8
 
     @method_decorator(admin_required)
     def dispatch(self, request, *args, **kwargs):
@@ -62,6 +62,7 @@ class UsersList(LoginRequiredMixin, ListView):
     model = get_user_model()
     template_name = 'admin/users-list.html'
     context_object_name = 'users'
+    paginate_by = 8
 
     @method_decorator(admin_required)
     def dispatch(self, request, *args, **kwargs):

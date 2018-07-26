@@ -58,7 +58,7 @@ label{
     transform: translateX(-100%);
     transition: transform 0.3s linear 0.1s;
     min-height: 95vh;
-    min-width: 78vw;
+    min-width: 80vw;
 }
 .off-canvas-nav:not(.hide){
     transform: translateX(0);
@@ -178,7 +178,7 @@ label{
 }
 @media (min-width: 400px){ 
     .off-canvas-nav{
-        min-width: 55vw;
+        min-width: 60vw;
     }
 }
 @media (min-width: 576px){ 
@@ -186,7 +186,7 @@ label{
         font-size: 1.25rem;
     }
     .off-canvas-nav{
-        min-width: 40vw;
+        min-width: 42vw;
     }
     .theme-btn{
         width: auto;

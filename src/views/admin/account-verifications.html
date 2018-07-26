@@ -30,8 +30,8 @@
                     </thead>
                 </table>
             </div>
+            {% if is_paginated %}
             <div>
-                {% if is_paginated %}
                 <ul class="pagination">
                     {% if page_obj.has_previous %}
                     <li class="page-item">
@@ -55,8 +55,8 @@
                     </li>
                     {% endif %}
                 </ul>
-                {% endif %}
             </div>
+            {% endif %}
             {% else %}
             <p class="list-group-item">
                 No account verifications

@@ -11,8 +11,8 @@
 <div class="container profile-details card">
     <div class="row card-body">
         <div class="col-12">
-            <img src="{% media_avatars user.avatar %}" id="profile-picture"
-                class="rounded d-block mx-auto profile-avatar" alt="user profile picture">
+            <img src="{% media_avatars user_account.avatar %}" id="profile-picture"
+                class="rounded d-block mx-auto profile-avatar" alt="user_account profile picture">
         </div>
     </div>
     <div class="row">
@@ -21,18 +21,18 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <span class="profile-details-label">Name: </span>
-                        {{user.name}}
+                        {{user_account.name}}
                         <i class="fas fa-edit float-right"></i>
                     </li>
                     <li class="list-group-item">
                         <span class="profile-details-label d-block d-md-inline-block">
                             Email: </span>
-                        {{user.email}}
+                        {{user_account.email}}
                         <i class="fas fa-edit float-right"></i>
                     </li>
                     <li class="list-group-item">
                         <form method="POST"
-                            action="{% url 'accounts:profile-picture-upload' user.slug %}"
+                            action="{% url 'accounts:profile-picture-upload' user_account.slug %}"
                             enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-row">
@@ -55,7 +55,7 @@
                     </li>
                     <li class="list-group-item text-center text-sm-left">
                         <a class="btn bg-primary-dark-color text-white theme-btn"
-                        href="{% url 'accounts:password-change' user.slug%}">Change password</a>
+                        href="{% url 'accounts:password-change' user_account.slug%}">Change password</a>
                     </li>
                 </ul>
             </div>
