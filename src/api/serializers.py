@@ -1,4 +1,4 @@
-from .models import CompletedTopic
+from tracks.models import CompletedTopic
 from rest_framework import serializers 
 
 class CompletedTopicSerializer(serializers.ModelSerializer):

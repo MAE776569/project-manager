@@ -22,12 +22,14 @@ from tracks import urls as tracks_urls
 from authentication.views import IndexView
 from django.conf import settings
 from django.conf.urls.static import static
+from api import urls as api_urls
 
 urlpatterns = [
     re_path(r"^$", IndexView.as_view(), name="index"),
     re_path(r"^auth/", include((auth_urls, 'authentication'), namespace="auth")),
     re_path(r"^accounts/", include((accounts_urls, 'accounts'), namespace="accounts")),
-    re_path(r"^tracks/", include((tracks_urls, 'tracks'), namespace="tracks"))
+    re_path(r"^tracks/", include((tracks_urls, 'tracks'), namespace="tracks")),
+    re_path(r"^api/", include((api_urls, 'api'), namespace="api"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

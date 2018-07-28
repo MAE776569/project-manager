@@ -11,7 +11,7 @@ player.on('ended', function(){
     let topicSlug = splitArray[splitArray.length - 1];
     $.ajax({
         method: "POST",
-        url: `/tracks/topics/${topicSlug}/completed/`,
+        url: `/api/topics/${topicSlug}/completed/`,
         headers: {
             'X-CSRFToken': Cookies.get('csrftoken')
         },

@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'accounts',
     'authentication',
     'administrator',
-    'tracks'
+    'tracks',
+    'api'
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,6 @@
 from rest_framework.generics import CreateAPIView
 from .serializers import CompletedTopicSerializer
-from .models import CompletedTopic, Topic
+from tracks.models import CompletedTopic, Topic
 from rest_framework import status
 from rest_framework.response import Response
 
