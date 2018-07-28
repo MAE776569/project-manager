@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from administrator.decorators import admin_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse, reverse_lazy
-from .forms import TrackForm, TopicForm
+from .forms import TrackForm, TopicForm, EditTopicNoteForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.db import transaction
@@ -152,7 +152,7 @@ class EditTopic(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         storage = messages.get_messages(self.request)
         storage.used = True
-        messages.success(self.request, "topic has been updated successfully.")
+        messages.success(self.request, "Topic has been updated successfully.")
         return reverse_lazy('tracks:topics',
             kwargs={
                 'slug': self.object.track.slug
@@ -244,3 +244,27 @@ class TopicsProgress(LoginRequiredMixin, ListView):
                 topic.created_at;""".format(user.id, track.id)
 
         return list(Topic.objects.raw(query))
+
+class EditTopicNote(LoginRequiredMixin, UpdateView):
+    model = Topic
+    template_name = 'topics/edit-topic-note.html'
+    form_class = EditTopicNoteForm
+
+    @method_decorator(admin_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_initial(self):
+        initial = self.initial.copy()
+        initial['note'] = self.object.note
+        return initial
+
+    def get_success_url(self):
+        storage = messages.get_messages(self.request)
+        storage.used = True
+        messages.success(self.request, "Note has been updated successfully.")
+        return reverse_lazy('tracks:topics',
+            kwargs={
+                'slug': self.object.track.slug
+            }
+        )

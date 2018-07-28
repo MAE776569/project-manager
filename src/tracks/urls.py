@@ -1,6 +1,7 @@
 from django.urls import re_path
 from .views import (TracksList, CreateTrack, EditTrack, DeleteTrack, TopicsList,
-AddTopic, EditTopic, DeleteTopic, TopicDetails, TracksProgress, TopicsProgress)
+AddTopic, EditTopic, DeleteTopic, TopicDetails, TracksProgress, TopicsProgress,
+EditTopicNote)
 from .api_views import UserCompletedTopic
 
 urlpatterns = [
@@ -16,6 +17,8 @@ urlpatterns = [
     #this to is topics
     re_path(r"topics/(?P<slug>[-\w]+)/edit-topic/$", EditTopic.as_view(),
         name='edit-topic'),
+    re_path(r"topics/(?P<slug>[-\w]+)/edit-note/$", EditTopicNote.as_view(),
+        name='edit-note'),
     re_path(r"topics/(?P<slug>[-\w]+)/delete-topic/$", DeleteTopic.as_view(),
         name='delete-topic'),
     #API views
@@ -23,7 +26,7 @@ urlpatterns = [
     #end APi views
     re_path(r"topics/(?P<slug>[-\w]+)/$", TopicDetails.as_view(),
         name='topic-details'),
-    #end this
+    #end topics
     re_path(r"(?P<track_slug>[-\w]+)/(?P<user_slug>[-\w]+)/$",
         TopicsProgress.as_view(), name='topics-progress'),
     re_path(r"$", TracksList.as_view(), name="tracks-list")

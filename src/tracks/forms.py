@@ -19,3 +19,11 @@ class TopicForm(forms.ModelForm):
             'description': "Add a detailed description to the topic.",
             'video_url': "The video that demonstrates the topic."
         }
+
+class EditTopicNoteForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ['note']
+        help_texts = {
+            'note': "Enter the html content of the instructor note."
+        }

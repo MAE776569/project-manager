@@ -1,0 +1,56 @@
+{% extends 'base-layout.html' %}
+{% load static %}
+{% block title %}Edit Note{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="card">
+                <div class="card-header bg-primary-color text-white">
+                    <h1>Edit Note</h1>
+                </div>
+                <div class="card-body">
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger col pb-0">
+                        <ul class="text-danger help-text-list">
+                            <li class="input-error-desc">{{error}}</li>
+                        </ul>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group form-row">
+                            <div class="col-12">
+                                <textarea id="note" name="{{form.note.html_name}}"
+                                    placeholder="Enter the topic's note"
+                                    class="form-control {% if form.note.errors %} input-error {% endif %}">{{form.initial.note}}</textarea>
+                                {% if form.note.errors %}
+                                <div class="text-danger">
+                                    <small class="input-error-desc">{{form.note.errors.0}}</small>
+                                </div>
+                                {% endif %}
+                                {% if form.note.help_text %}
+                                <div class="form-text">
+                                    <small class="help-text">{{form.note.help_text|safe}}</small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                <input type="submit" value="Edit note" class="btn bg-primary-color text-white" id="submit-btn"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block body-scripts %}
+<script src="{% static 'scripts/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'scripts/topics/edit-topic-note.js' %}"></script>
+{% endblock %}
