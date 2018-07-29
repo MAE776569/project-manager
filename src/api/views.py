@@ -1,5 +1,6 @@
-from rest_framework.generics import CreateAPIView
-from .serializers import CompletedTopicSerializer
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from .serializers import (CompletedTopicSerializer, TopicVideoSerializer,
+TopicNoteSerializer)
 from tracks.models import CompletedTopic, Topic
 from rest_framework import status
 from rest_framework.response import Response
@@ -19,3 +20,19 @@ class UserCompletedTopic(CreateAPIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Topic.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+class GetTopicVideoID(RetrieveAPIView):
+    serializer_class = TopicVideoSerializer
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'slug'
+
+    def get_queryset(self):
+        return Topic.objects.all()
+
+class GetTopicNote(RetrieveAPIView):
+    serializer_class = TopicNoteSerializer
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'slug'
+
+    def get_queryset(self):
+        return Topic.objects.all()

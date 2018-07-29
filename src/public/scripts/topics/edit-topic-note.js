@@ -18,7 +18,9 @@ tinymce.init({
         {
             title: 'Tags', items: [
                 {title: 'span', inline:'span'},
+                {title: 'section', block: 'section'}
             ]
         },
-    ]
+    ],
+    //valid_children: "+section[*]"
 });

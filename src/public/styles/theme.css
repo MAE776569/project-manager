@@ -176,6 +176,15 @@ label{
 .off-canvas-dropdown{
     width: 100%;
 }
+.topic-nav{
+    flex-direction: row;
+    flex-basis: 100%;
+    flex-grow: 1;
+}
+.topic-nav-item{
+    flex-basis: 50%;
+    flex-grow: 1;
+}
 @media (min-width: 400px){ 
     .off-canvas-nav{
         min-width: 60vw;

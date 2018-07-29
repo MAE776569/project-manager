@@ -1,0 +1,5 @@
+<div ng-if="video_id" class="embed-responsive embed-responsive-16by9">
+    <youtube-video class="embed-responsive-item"
+        video-id="video_id" player-vars="playerVars"></youtube-video>
+</div>
+<p ng-if="!video_id" class="mb-0" ng-cloak>No video for this topic.</p>
