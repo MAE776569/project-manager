@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'authentication',
     'administrator',
     'tracks',
-    'api'
+    'api',
+    'notifications'
 ]
 
 MIDDLEWARE = [
