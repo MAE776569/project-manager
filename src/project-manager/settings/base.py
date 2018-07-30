@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'administrator',
     'tracks',
     'api',
-    'notifications'
+    'notifications',
+    'resources'
 ]
 
 MIDDLEWARE = [
