@@ -1,3 +1,4 @@
+{% load notif_filters %}
 <header class="bg-primary-dark-color header">
     <nav class="nav-bar">
         <button class="navbar-toggler btn btn-light
@@ -80,19 +81,15 @@
                         aria-expanded="false">
                         <span>Notifications</span>
                         <span class="badge badge-light">
-                            <i class="far fa-bell mr-1"></i>5
+                            <i class="far fa-bell mr-1"></i>
+                            {% if request.notifications|count_unseen %}
+                            <span class="badge badge-pill badge-danger notif-count">
+                                {{request.notifications|count_unseen}}
+                            </span>
+                            {% endif %}
                         </span>
                     </a>
-                    <div class="dropdown-menu notifications-dropdown collapse"
-                        id="notifications-dropdown">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
-                            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                            <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-                        </div>
-                    </div>
+                    {% include 'partials/notifications.html' %}
                 </li>
             </ul>
         </div>

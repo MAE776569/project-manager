@@ -1,0 +1,26 @@
+<div class="dropdown-menu notifications-dropdown collapse"
+    id="notifications-dropdown">
+    <div class="list-group">
+        {% if request.notifications %}
+        {% for notification in request.notifications %}
+        <a href="{{notification.callback_url}}?notif_id={{notification.id}}&ref=notif"
+            class="list-group-item list-group-item-action">
+            <div>
+                <h6 class="card-title mb-0">
+                    <span>{{notification.title}}</span>
+                    <span class="float-right badge badge-pill p-1 mt-2 mr-1
+                    {% if not notification.seen %}bg-primary-color{% else %}badge-secondary{% endif %}">
+                    </span>
+                </h6>
+                <small class="card-subtitle text-muted">{{notification.created_at}}</small>
+                <p class="card-text">{{notification.subtitle}}</p>
+            </div>
+        </a>
+        {% endfor %}
+        {% else %}
+        <span class="list-group-item list-group-item-action">
+            No notifications
+        </span>
+        {% endif %}
+    </div>
+</div>

@@ -147,7 +147,7 @@ label{
     padding-right: 2rem;
     width: 55%;
 }
-.theme-btn:hover{
+.theme-btn:hover, .topic-btn:hover{
     background-color: #4db6ac;
 }
 .nav-bar{
@@ -184,6 +184,14 @@ label{
 .topic-nav-item{
     flex-basis: 50%;
     flex-grow: 1;
+}
+.topic-nav-item:hover{
+    background-color:#6c757d;
+}
+.notif-count{
+    position: absolute;
+    top: 25%;
+    right: 7%;
 }
 @media (min-width: 400px){ 
     .off-canvas-nav{
@@ -238,6 +246,9 @@ label{
     }
     .off-canvas-dropdown{
         width: auto;
+    }
+    .notif-count{
+        right: 16%;
     }
 }
 @media (min-width: 992px){

@@ -9,18 +9,18 @@
     <div class="row justify-content-center">
         <div class="col-12 col-md-10">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-primary-color text-white">
                     <h2 class="text-center">{{topic.0.title}}</h2>
                 </div>
                 <div ng-app="topic-details">
-                    <nav class="navbar bg-primary-color">
-                        <div class="container-fluid">
+                    <nav class="navbar navbar bg-dark p-0">
+                        <div class="container-fluid px-0">
                             <ul class="nav topic-nav">
-                                <li class="nav-item text-center topic-nav-item">
+                                <li class="nav-item text-center topic-nav-item py-2">
                                     <a class="nav-link" role="tab" aria-controls="Video"
                                          ui-sref="video">Video</a>
                                 </li>
-                                <li class="nav-item text-center topic-nav-item">
+                                <li class="nav-item text-center topic-nav-item py-2">
                                     <a class="nav-link" role="tab" aria-controls="Note"
                                          ui-sref="note">Note</a>
                                 </li>
@@ -32,12 +32,12 @@
                 <div class="card-footer">
                     {% if topic.0.prev_slug or topic.0.next_slug%}
                     {% if topic.0.prev_slug %}
-                    <a class="btn btn-outline-success bt-md"
+                    <a class="btn bg-primary-dark-color text-white topic-btn"
                         href="{% url 'tracks:topic-details' topic.0.prev_slug %}">
                         Previous topic</a>
                     {% endif %}
                     {% if topic.0.next_slug %}
-                    <a class="btn btn-outline-success btn-md float-right"
+                    <a class="btn bg-primary-dark-color float-right text-white topic-btn"
                         href="{% url 'tracks:topic-details' topic.0.next_slug %}">
                         Next topic</a>
                     {% endif %}
