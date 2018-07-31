@@ -1,0 +1,26 @@
+{% extends 'base-layout.html' %}
+{% block title %}Confirm delete{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Confirm delete</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Are you sure you want to delete that link?</p>
+                    <div class="dropdown-divider"></div>
+                    <form method="POST" action="{% url 'resources:delete-link' object.id %}"
+                        class="d-inline-block">
+                        {% csrf_token %}
+                        <input type="submit" value="Confirm" class="btn btn-info text-white"/>
+                    </form>
+                    <a href="{% url 'resources:resources-list' %}"
+                        class="card-link btn btn-secondary float-right">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -116,7 +116,7 @@ label{
     padding-right: 0;
     padding-left: 0;
 }
-.picture-upload {
+.upload {
 	width: 0.1px;
 	height: 0.1px;
 	opacity: 0;
@@ -124,7 +124,7 @@ label{
 	position: absolute;
 	z-index: -1;
 }
-.picture-upload-label{
+.upload-label{
     display: inline-block;
     cursor: pointer;
     max-width: 100%;
@@ -133,7 +133,7 @@ label{
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
 }
-.picture-upload:focus + .picture-upload-label{
+.upload:focus + .upload-label{
 	outline: 1px dotted #000;
 	outline: -webkit-focus-ring-color auto 5px;
 }
@@ -192,6 +192,9 @@ label{
     position: absolute;
     top: 25%;
     right: 7%;
+}
+.wrap-word{
+    word-wrap: break-word;
 }
 @media (min-width: 400px){ 
     .off-canvas-nav{

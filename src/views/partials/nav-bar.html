@@ -1,4 +1,3 @@
-{% load notif_filters %}
 <header class="bg-primary-dark-color header">
     <nav class="nav-bar">
         <button class="navbar-toggler btn btn-light
@@ -17,13 +16,10 @@
                 <ul class="nav nav-ml {% if user.is_authenticated %}off-canvas-ul{%endif%}">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Addtional Links</a>
+                        <a class="nav-link" href="{% url 'resources:resources-list' %}">Resources</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'tracks:tracks-list' %}">Tracks</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Wiki</a>
                     </li>
                     {% if user.is_admin %}
                     <li class="nav-item dropdown">
@@ -81,10 +77,10 @@
                         aria-expanded="false">
                         <span>Notifications</span>
                         <span class="badge badge-light">
-                            <i class="far fa-bell mr-1"></i>
-                            {% if request.notifications|count_unseen %}
+                            <i class="far fa-bell p-1"></i>
+                            {% if request.notifications_count %}
                             <span class="badge badge-pill badge-danger notif-count">
-                                {{request.notifications|count_unseen}}
+                                {{request.notifications_count}}
                             </span>
                             {% endif %}
                         </span>

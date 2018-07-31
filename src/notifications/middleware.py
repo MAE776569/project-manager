@@ -28,3 +28,7 @@ class NotificationMiddleware(MiddlewareMixin):
             else:
                 query = query.format(request.user.id, False, True)
             request.notifications = list(NotificationManager.objects.raw(query))
+            count = 0
+            for notif in request.notifications:
+                count += int(not notif.seen)
+            request.notifications_count = count

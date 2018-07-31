@@ -1,0 +1,101 @@
+{% extends 'base-layout.html' %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="card">
+                <div class="card-header bg-primary-color text-white">
+                    <h1>{{title}}</h1>
+                </div>
+                <div class="card-body">
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger col pb-0">
+                        <ul class="text-danger help-text-list">
+                            <li class="input-error-desc">{{error}}</li>
+                        </ul>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group form-row">
+                            <label class="col-form-label col-lg-2 text-lg-center"
+                                for="title">Title</label>
+                            <div class="col-lg-10">
+                                <input type="text" id="title" name="{{form.title.html_name}}"
+                                    placeholder="Enter the link's title" required autofocus value="{{form.initial.title}}"
+                                    class="form-control {% if form.title.errors %} input-error {% endif %}"/>
+                                {% if form.title.errors %}
+                                <div class="text-danger">
+                                    <small class="input-error-desc">{{form.title.errors.0}}</small>
+                                </div>
+                                {% endif %}
+                                {% if form.title.help_text %}
+                                <div class="form-text">
+                                    <small class="help-text">{{form.title.help_text|safe}}</small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label class="col-form-label col-lg-2 text-lg-center"
+                                for="subtitle">Subtitle</label>
+                            <div class="col-lg-10">
+                                <textarea id="subtitle" name="{{form.subtitle.html_name}}"
+                                    placeholder="Enter the link's subtitle" rows="5" required
+                                    class="form-control {% if form.subtitle.errors %} input-error {% endif %}">{{form.initial.subtitle}}</textarea>
+                                {% if form.subtitle.errors %}
+                                <div class="text-danger">
+                                    <small class="input-error-desc">{{form.subtitle.errors.0}}</small>
+                                </div>
+                                {% endif %}
+                                {% if form.subtitle.help_text %}
+                                <div class="form-text">
+                                    <small class="help-text">{{form.subtitle.help_text|safe}}</small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col-12 offset-lg-2">
+                                <input type="file" id="document-upload"
+                                    name="{{form.document.html_name}}" class="form-control-file upload" />
+                                <label for="document-upload"
+                                    class="upload-label btn bg-primary-dark-color text-white theme-btn">
+                                    <i class="fas fa-upload"></i>
+                                    <span id="document-upload-label-text">Upload document</span>
+                                </label>
+                            </div>
+                            {% if form.document.errors %}
+                            <div class="text-danger col-12 offset-lg-2">
+                                <small class="input-error-desc">{{form.document.errors.0}}</small>
+                            </div>
+                            {% endif %}
+                            {% if form.document.help_text %}
+                            <div class="form-text col-12 offset-lg-2">
+                                <small class="help-text">{{form.document.help_text|safe}}</small>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-row">
+                            <div class="col offset-lg-2">
+                                <input type="submit" value="{{title}}" disabled
+                                    class="btn bg-primary-color text-white" id="submit-btn"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block body-scripts %}
+<script src="{% static 'scripts/resources/validate-document-form.js'  %}"></script>
+{% block valiate-scripts %}
+<script src="{% static 'scripts/resources/validate-document-create.js'  %}"></script>
+{% endblock %}
+{% endblock %}
