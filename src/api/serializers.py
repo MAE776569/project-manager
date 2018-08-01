@@ -1,5 +1,5 @@
 from tracks.models import CompletedTopic, Topic
-from rest_framework import serializers 
+from rest_framework import serializers
 
 class CompletedTopicSerializer(serializers.ModelSerializer):
     class Meta:

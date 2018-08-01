@@ -36,3 +36,15 @@ class DocumentUpdateForm(forms.ModelForm):
             'subtitle': "The subtitle that briefly describes the document.",
             'document': "The file to upload."
         }
+
+class SearchResourcesForm(forms.Form):
+
+    RESOURCE_TYPES = (
+            ('link', 'link'),
+            ('document', 'document')
+        )
+
+    resource_name = forms.CharField(required=True)
+    resource_type = forms.MultipleChoiceField(required=False,
+        choices=RESOURCE_TYPES,
+        widget=forms.CheckboxSelectMultiple)

@@ -7,7 +7,8 @@ from itertools import chain
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
 from django.contrib import messages
-from .forms import LinkForm, DocumentCreateForm, DocumentUpdateForm
+from .forms import (LinkForm, DocumentCreateForm, DocumentUpdateForm,
+SearchResourcesForm)
 
 class ResourcesList(LoginRequiredMixin, ListView):
     model = Link
@@ -16,7 +17,27 @@ class ResourcesList(LoginRequiredMixin, ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        return list(chain(Link.objects.all(), Document.objects.all()))
+        form = SearchResourcesForm(self.request.GET)
+        if form.is_valid():
+            resource_name = form.cleaned_data.get('resource_name')
+            resource_type = form.cleaned_data.get('resource_type')
+            links, documents = [], []
+
+            if resource_type:
+                if 'link' in resource_type:
+                    links = Link.objects.filter(title__icontains=resource_name)
+                if 'document' in resource_type:
+                    documents = Document.objects.filter(title__icontains=resource_name)
+                
+            else:
+                links = Link.objects.filter(title__icontains=resource_name)
+                documents = Document.objects.filter(title__icontains=resource_name)
+
+        else:
+            links = Link.objects.all()
+            documents = Document.objects.all()
+        
+        return list(chain(links, documents))
 
 class AddLink(LoginRequiredMixin, CreateView):
     model = Link
