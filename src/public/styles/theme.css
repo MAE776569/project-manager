@@ -196,6 +196,15 @@ label{
 .wrap-word{
     word-wrap: break-word;
 }
+.pg-pl{
+    padding-left: 15px;
+}
+.copy-rights{
+    font-weight: 600;
+}
+.brand{
+    text-shadow: -1px -1px;
+}
 @media (min-width: 400px){ 
     .off-canvas-nav{
         min-width: 60vw;

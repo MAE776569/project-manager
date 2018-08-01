@@ -32,18 +32,26 @@
                 <div class="card-footer">
                     {% if topic.0.prev_slug or topic.0.next_slug%}
                     {% if topic.0.prev_slug %}
-                    <a class="btn bg-primary-dark-color text-white topic-btn"
+                    <a class="btn bg-primary-dark-color text-white topic-btn py-2"
                         href="{% url 'tracks:topic-details' topic.0.prev_slug %}">
                         Previous topic</a>
                     {% endif %}
                     {% if topic.0.next_slug %}
-                    <a class="btn bg-primary-dark-color float-right text-white topic-btn"
+                    <a class="btn bg-primary-dark-color float-right text-white topic-btn py-2"
                         href="{% url 'tracks:topic-details' topic.0.next_slug %}">
                         Next topic</a>
                     {% endif %}
                     {% else %}
                         <p class="card-text">No other topics</p>
                     {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a class="btn bg-primary-dark-color float-right text-white topic-btn py-2" href="{% url 'tracks:topics' topic.0.track.slug%}">
+                        <span class="mr-2">
+                            <i class="fas fa-arrow-alt-circle-left"></i>
+                        </span>
+                        <span>topics</span>
+                    </a>
                 </div>
             </div>
         </div>
