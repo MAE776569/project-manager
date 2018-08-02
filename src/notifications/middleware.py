@@ -20,13 +20,16 @@ class NotificationMiddleware(MiddlewareMixin):
             and notification_manager.user_id={0}
             where notification.admin_only={1}
             and notification.users_only={2}
+            and notification.created_at >= '{3}'
             order by notification.created_at desc
             limit 5;'''
 
             if request.user.is_admin:
-                query = query.format(request.user.id, True, False)
+                query = query.format(request.user.id, True, False,
+                    request.user.date_joined)
             else:
-                query = query.format(request.user.id, False, True)
+                query = query.format(request.user.id, False, True,
+                    request.user.date_joined)
             request.notifications = list(NotificationManager.objects.raw(query))
             count = 0
             for notif in request.notifications:
