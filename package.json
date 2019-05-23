@@ -1,0 +1,33 @@
+{
+  "name": "Project Manager",
+  "authors": [
+    "MAE <MAE@776569.com>"
+  ],
+  "description": "website to manage the development of the graduation project",
+  "main": "./src",
+  "keywords": [
+    "python",
+    "django",
+    "drf",
+    "bootstrap",
+    "angularjs",
+    "jquery",
+    "postgresql"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-uglify": "^3.0.1"
+  }
+}

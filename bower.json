@@ -1,0 +1,38 @@
+{
+  "name": "Project Manager",
+  "authors": [
+    "MAE <MAE@776569.com>"
+  ],
+  "description": "website to manage the development of the graduation project",
+  "main": "./src",
+  "keywords": [
+    "python",
+    "django",
+    "drf",
+    "bootstrap",
+    "angularjs",
+    "jquery",
+    "postgresql"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.7.2",
+    "bootstrap4": "^4.1.1",
+    "jquery": "^3.3.1",
+    "fontAwesome": "^5.1.0",
+    "angular-ui-router": "^1.0.19",
+    "angular-youtube-mb": "^1.3.1",
+    "popper.js": "^1.14.3",
+    "js-cookie": "^2.2.0",
+    "tinymce": "^4.8.1"
+  }
+}

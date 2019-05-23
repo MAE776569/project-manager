@@ -113,9 +113,6 @@ venv.bak/
 
 # node modules
 /node_modules
-package.json
-package-lock.json
-gulp.js
 
 # bower
 /bower_components
@@ -128,3 +125,23 @@ gulp.js
 
 # popper.js
 **/popper.*
+
+#font awesome
+**/fontawesome.*
+**/fontawesome-*
+
+#webfonts
+**/webfonts
+
+# images
+**/images/*
+
+# media
+**/media/**/*
+
+#tinymce
+**/tinymce/**
+
+#angularjs
+**/angular.*
+**/angular-*
