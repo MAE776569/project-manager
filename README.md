@@ -4,7 +4,7 @@ Website that enables the team members to track the progress of the project and a
 
 ## Features
 
-1. The members are registered into the website if only the admin can send them an invitation.
+1. The members are registered into the website if only the admin sent them an invitation.
 2. Only the admin is allowed to add, edit and delete tracks and topics.
 3. The admin can see if the members completed a certain track and topic or not.
 4. Only the admin can add, edit and delete resources from the website.
